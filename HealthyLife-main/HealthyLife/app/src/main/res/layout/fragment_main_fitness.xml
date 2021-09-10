@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.mainfragments.MainFitnessFragment"
+    android:background="@drawable/gradient_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.9"
+        android:id="@+id/table"
+        android:background="@drawable/custom_main_fitmess"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Height"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/glVer"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tvHeightTitle"
+            app:layout_constraintBottom_toTopOf="@id/tvHeight"
+            android:textColor="@color/white"/>
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/tvHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/custom_font"
+            android:text="173cm"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/glVer"
+            app:layout_constraintTop_toBottomOf="@id/tvHeightTitle"
+            app:layout_constraintBottom_toBottomOf="@id/glHori"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight"
+            android:textSize="30sp"
+            android:id="@+id/tvWeightTitle"
+            app:layout_constraintStart_toStartOf="@id/glVer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvWeight"
+            android:textColor="@color/white"/>
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/tvWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/custom_font"
+            android:text="73kg"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/glVer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvWeightTitle"
+            app:layout_constraintBottom_toBottomOf="@id/glHori"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BMI"
+            android:textSize="30sp"
+            android:id="@+id/tvBmiTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/glVer"
+            app:layout_constraintTop_toTopOf="@id/glHori"
+            app:layout_constraintBottom_toTopOf="@id/tvBmi"
+            android:textColor="@color/white"/>
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/tvBmi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/custom_font"
+            android:text="18kg/m2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/glVer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBmiTitle"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:textSize="30sp"
+            android:id="@+id/tvTypeTitle"
+            app:layout_constraintStart_toStartOf="@id/glVer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/glHori"
+            app:layout_constraintBottom_toTopOf="@id/tvType"
+            android:textColor="@color/white"/>
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/tvType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_gravity="center"
+            android:fontFamily="@font/custom_font"
+            android:text="123"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/glVer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTypeTitle" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glHori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="WORK OUT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/table"
+        android:id="@+id/btnTimer"
+        android:fontFamily="@font/custom_font"
+        app:layout_constraintBottom_toTopOf="@id/btnExercise"
+        app:layout_constraintWidth_percent="0.7"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/custom_button"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="EXERCISE LIST"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnExercise"
+        android:fontFamily="@font/custom_font"
+        app:layout_constraintTop_toBottomOf="@id/btnTimer"
+        app:layout_constraintBottom_toTopOf="@id/btnBreathe"
+        app:layout_constraintWidth_percent="0.7"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/custom_button"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="BREATHE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnBreathe"
+        android:fontFamily="@font/custom_font"
+        app:layout_constraintTop_toBottomOf="@id/btnExercise"
+        app:layout_constraintBottom_toTopOf="@id/btnStandup"
+        app:layout_constraintWidth_percent="0.7"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/custom_button"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Stand up NOTIFICATION"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnStandup"
+        android:fontFamily="@font/custom_font"
+        app:layout_constraintTop_toBottomOf="@id/btnBreathe"
+        app:layout_constraintBottom_toTopOf="@id/btnStat"
+        app:layout_constraintWidth_percent="0.7"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/custom_button"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="MANAGE BMI"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnStat"
+        android:fontFamily="@font/custom_font"
+        app:layout_constraintTop_toBottomOf="@id/btnStandup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.7"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/custom_button"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/DietListRV"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="50dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/RVDietListImage"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/dietName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/custom_font"
+                android:text="Diet Name"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/dietDescription"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/RVDietListImage"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAllCaps="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description "
+                app:layout_constraintStart_toEndOf="@id/RVDietListImage"
+                app:layout_constraintTop_toBottomOf="@id/dietName"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:id="@+id/dietDescription"
+                android:fontFamily="@font/custom_font"/>
+
+            <TextView
+                android:id="@+id/RVDietContentDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Content"
+                android:layout_marginLeft="127dp"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/dietDescription"
+                app:layout_constraintStart_toEndOf="@id/RVDietListImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

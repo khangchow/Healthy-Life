@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp"
+        android:background="@drawable/custom_stat_table"
+        android:layout_marginTop="50dp"
+        android:id="@+id/linearCongrats">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Congrats"
+            android:fontFamily="@font/custom_font"
+            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="You have done well today"
+        android:fontFamily="@font/custom_font"
+        android:textSize="50sp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearCongrats"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:id="@+id/tvDone"/>
+
+    <TextView
+        android:id="@+id/tvNumOfEx"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/custom_font"
+        android:gravity="center"
+        android:text="5/5\nExercise"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDone"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:textSize="30sp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNumOfEx"
+        android:id="@+id/btnOk"
+        android:fontFamily="@font/custom_font"
+        android:background="@drawable/custom_button"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

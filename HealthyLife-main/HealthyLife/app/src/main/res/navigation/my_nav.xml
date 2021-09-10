@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/launchFragment">
+
+    <fragment
+        android:id="@+id/launchFragment"
+        android:name="com.myapplication.healthylife.fragments.LaunchFragment"
+        android:label="Launching"
+        tools:layout="@layout/fragment_launch" >
+        <action
+            android:id="@+id/action_launchFragment_to_firstUseFragment"
+            app:destination="@id/firstUseFragment"
+            app:popUpTo="@id/launchFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_launchFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/launchFragment"
+            app:popUpToInclusive="true"/>/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/firstUseFragment"
+        android:name="com.myapplication.healthylife.fragments.firstusefragment.FirstUseFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_first_use">
+        <action
+            android:id="@+id/action_firstUseFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/firstUseFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_firstUseFragment"
+            app:destination="@id/firstUseFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_mainFragment_to_fitnessFragment"
+            app:destination="@id/fitnessFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_standUpNoti"
+            app:destination="@id/standUpNoti" />
+        <action
+            android:id="@+id/action_mainFragment_to_statFragment"
+            app:destination="@id/statFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_aboutUs"
+            app:destination="@id/aboutUs" />
+        <action
+            android:id="@+id/action_mainFragment_to_aboutFitness"
+            app:destination="@id/aboutFitness" />
+        <action
+            android:id="@+id/action_mainFragment_to_aboutDiet"
+            app:destination="@id/aboutDiet" />
+        <action
+            android:id="@+id/action_mainFragment_to_commonKnowledge"
+            app:destination="@id/commonKnowledge" />
+        <action
+            android:id="@+id/action_mainFragment_to_dietRecommendFragment"
+            app:destination="@id/dietRecommendFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_dishDetailFragment"
+            app:destination="@id/DishDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_breathe"
+            app:destination="@id/breathe" />
+        <action
+            android:id="@+id/action_mainFragment_to_drinkWater"
+            app:destination="@id/drinkWaterNoti" />
+        <action
+            android:id="@+id/action_mainFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseDetailFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.ExerciseDetailFragment"
+        android:label="Exercise Detail"
+        tools:layout="@layout/fragment_exercise_detail">
+        <action
+            android:id="@+id/action_exerciseDetailFragment_to_fitnessFragment"
+            app:destination="@id/fitnessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fitnessFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.FitnessFragment"
+        android:label="Exercise List"
+        tools:layout="@layout/fragment_fitness">
+        <action
+            android:id="@+id/action_fitnessFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_fitnessFragment_to_exerciseDetailFragment"
+            app:destination="@id/exerciseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.TimerFragment"
+        android:label="Work Out"
+        tools:layout="@layout/fragment_timer">
+        <action
+            android:id="@+id/action_timerFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/standUpNoti"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.StandUpNoti"
+        android:label="Stand-up Notification"
+        tools:layout="@layout/fragment_stand_up_noti">
+        <action
+            android:id="@+id/action_standUpNoti_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.StatFragment"
+        android:label="Manage BMI"
+        tools:layout="@layout/fragment_stat">
+        <action
+            android:id="@+id/action_statFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUs"
+        android:name="com.myapplication.healthylife.AboutUs"
+        android:label="About Us"
+        tools:layout="@layout/fragment_about_us">
+        <action
+            android:id="@+id/action_aboutUs_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFitness"
+        android:name="com.myapplication.healthylife.AboutFitness"
+        android:label="About Fitness"
+        tools:layout="@layout/fragment_about_fitness">
+        <action
+            android:id="@+id/action_aboutFitness_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutDiet"
+        android:name="com.myapplication.healthylife.AboutDiet"
+        android:label="About Diet"
+        tools:layout="@layout/fragment_about_diet">
+        <action
+            android:id="@+id/action_aboutDiet_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commonKnowledge"
+        android:name="com.myapplication.healthylife.CommonKnowledge"
+        android:label="About BMI"
+        tools:layout="@layout/fragment_common_knowledge">
+        <action
+            android:id="@+id/action_commonKnowledge_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dietRecommendFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.DietRecommendFragment"
+        android:label="Diet Recommend"
+        tools:layout="@layout/fragment_diet_recommend" >
+        <action
+            android:id="@+id/action_dietRecommendFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_dietRecommendFragment_to_DietDetailFragment"
+            app:destination="@id/DietDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DishDetailFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.DishDetailFragment"
+        android:label="Dish Detail"
+        tools:layout="@layout/fragment_dish_detail" >
+        <action
+            android:id="@+id/action_DishDetail_to_DietDetailFragment"
+            app:destination="@id/DietDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DietDetailFragment"
+        android:name="com.myapplication.healthylife.fragments.mainfragments.DietDetailFragment"
+        android:label="Diet Detail"
+        tools:layout="@layout/fragment_diet_detail" >
+        <action
+            android:id="@+id/action_DietDetail_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_DietDetail_to_DishDetail"
+            app:destination="@id/DishDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/breathe"
+        android:name="com.myapplication.healthylife.Breathe"
+        android:label="Breathe"
+        tools:layout="@layout/fragment_breathe">
+        <action
+            android:id="@+id/action_breathe_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drinkWaterNoti"
+        android:name="com.myapplication.healthylife.DrinkWaterNoti"
+        android:label="Drink Water Reminder"
+        tools:layout="@layout/fragment_drink_water_noti" />
+
+</navigation>

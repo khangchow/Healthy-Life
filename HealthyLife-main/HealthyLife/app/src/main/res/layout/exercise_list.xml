@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleLayout"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:text="Text"
+                android:fontFamily="@font/custom_font"
+                android:textSize="30sp"
+                android:visibility="visible"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="50dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_percent="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.3"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/custom_font"
+                    android:text="Exercise's Name"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@id/tvLevel"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textAllCaps="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level: "
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintTop_toBottomOf="@id/tvName"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:id="@+id/tvLevel"
+                    app:layout_constraintBottom_toTopOf="@id/tvDuration"
+                    android:fontFamily="@font/custom_font"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/tvLevel"
+                    app:layout_constraintTop_toTopOf="@id/tvLevel"
+                    android:layout_marginStart="5dp"
+                    android:text="Difficult"
+                    android:textSize="20sp"
+                    android:id="@+id/level"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    android:fontFamily="@font/custom_font"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration: "
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintTop_toBottomOf="@id/tvLevel"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:id="@+id/tvDuration"
+                    app:layout_constraintBottom_toTopOf="@id/tvProgress"
+                    android:fontFamily="@font/custom_font"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/tvDuration"
+                    app:layout_constraintTop_toTopOf="@id/tvDuration"
+                    android:layout_marginStart="5dp"
+                    android:text="15 mins"
+                    android:textSize="20sp"
+                    android:id="@+id/duration"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    android:fontFamily="@font/custom_font"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Progress: "
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintTop_toBottomOf="@id/tvDuration"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:id="@+id/tvProgress"
+                    android:fontFamily="@font/custom_font"/>
+
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.85"/>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/guideline2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/checkBox"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/tvProgress"
+                    app:layout_constraintTop_toTopOf="@id/tvProgress"
+                    app:layout_constraintBottom_toBottomOf="@id/tvProgress"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    android:max="14"
+                    android:progress="7"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#00000000"
+                    app:layout_constraintStart_toStartOf="@id/progressBar"
+                    app:layout_constraintTop_toTopOf="@id/progressBar"
+                    app:layout_constraintBottom_toBottomOf="@id/progressBar"
+                    app:layout_constraintEnd_toEndOf="@id/progressBar"
+                    android:text="15%"
+                    android:gravity="center"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/white"
+                    android:id="@+id/tvProgressBar"
+                    android:fontFamily="@font/custom_font"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+</LinearLayout>

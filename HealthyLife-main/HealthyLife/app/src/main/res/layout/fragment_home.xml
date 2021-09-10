@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.mainfragments.HomeFragment"
+    android:background="@drawable/gradient_background"
+    android:padding="15dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/profile"
+        app:layout_constraintBottom_toTopOf="@id/tvHello"
+        app:layout_constraintEnd_toStartOf="@id/table"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="10dp"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/table"
+        android:layout_width="216dp"
+        android:layout_height="203dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@id/circleImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.9"
+        android:background="@drawable/custom_stat_table"
+        app:layout_constraintBottom_toTopOf="@id/tvHello"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:id="@+id/tvCaloDiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diet"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/CaloDiet"
+            app:layout_constraintEnd_toEndOf="@id/glVer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/custom_font"
+            />
+
+        <TextView
+            android:id="@+id/CaloDiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@id/glHori"
+            app:layout_constraintEnd_toEndOf="@id/glVer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCaloDiet"
+            android:fontFamily="@font/custom_font"/>
+
+
+        <TextView
+            android:id="@+id/tvCaloExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fitness"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/CaloExercise"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/glVer"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/custom_font"/>
+
+        <TextView
+            android:id="@+id/CaloExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@id/glHori"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/glVer"
+            app:layout_constraintTop_toBottomOf="@id/tvCaloExercise"
+            android:fontFamily="@font/custom_font"/>
+
+        <TextView
+            android:id="@+id/tvCaloTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Today's Calo"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/glHori"
+            android:fontFamily="@font/custom_font"/>
+
+        <TextView
+            android:id="@+id/CaloTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="123"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCaloTotal"
+            android:fontFamily="@font/custom_font"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="108dp"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glHori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/tvHello"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/custom_font"
+        android:text="Hello, username"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/table"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnAboutDiet"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:id="@+id/btnAboutDiet"
+        :layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/twoButton"
+        android:layout_centerInParent="true"
+        android:text="About Diet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHello"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/custom_font"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/btnAboutFitness" />
+
+    <Button
+        android:id="@+id/btnAboutFitness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAboutDiet"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:text="About Fitness"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAboutDiet"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/custom_font"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/twoButton"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/twoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAboutFitness"
+        app:layout_constraintBottom_toTopOf="@id/btnLogout">
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btnAboutUs"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/custom_font"
+            android:text="About Us"
+            android:textSize="20sp"
+            />
+
+        <Button
+            android:id="@+id/btnCommonInfo"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="25dp"
+            android:text="About BMI"
+            app:layout_constraintHorizontal_bias="0.4"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/custom_font"
+            android:textSize="20sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:text="log out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twoButton"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/custom_font"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

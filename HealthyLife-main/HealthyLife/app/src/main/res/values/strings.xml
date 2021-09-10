@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">HealthyLife</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="diet_plan">Diet Plan</string>
+    <string name="diet_evaluation">Diet Evaluation</string>
+    <string name="typical_diets">Typical Diets</string>
+    <string name="recommend">Recommend</string>
+    <string name="today_dish"><u>Today Dishes</u></string>
+    <string name="diet">DIET</string>
+    <string name="dietary_recommendation">Dietary Recommendation</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="drink_water">Drink Water</string>
+    <string name="click_here">Click here</string>
+</resources>
