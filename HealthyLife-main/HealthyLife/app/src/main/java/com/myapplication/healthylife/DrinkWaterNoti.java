@@ -34,7 +34,8 @@ public class DrinkWaterNoti extends Fragment {
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver3.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(getActivity(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Calendar cal = Calendar.getInstance();
+        int ALARM_DELAY_IN_SECOND = 60;
+        long alarmTimeAtUTC = System.currentTimeMillis() + ALARM_DELAY_IN_SECOND * 1_000L;
 
         Switch simpleSwitch = (Switch) view.findViewById(R.id.switch1);
         SharedPreferences sharedPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -43,7 +44,7 @@ public class DrinkWaterNoti extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 4*60*60, broadcast);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTimeAtUTC, 60000, broadcast);
                 }
                 else{
                     alarmManager.cancel(broadcast);
