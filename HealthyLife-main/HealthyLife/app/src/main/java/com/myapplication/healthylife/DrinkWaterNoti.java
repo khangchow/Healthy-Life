@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +19,22 @@ import androidx.fragment.app.Fragment;
 
 import com.myapplication.healthylife.alarmreceiver.WaterAlarmReceiver;
 import com.myapplication.healthylife.databinding.FragmentDrinkWaterNotiBinding;
+import com.myapplication.healthylife.local.AppPrefs;
 
 import java.util.Calendar;
 
 public class DrinkWaterNoti extends Fragment {
     private FragmentDrinkWaterNotiBinding binding;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            binding = FragmentDrinkWaterNotiBinding.inflate(getLayoutInflater());
-            return binding.getRoot();
+        sharedPreferences = AppPrefs.getInstance(getContext());
+        binding = FragmentDrinkWaterNotiBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -37,33 +42,34 @@ public class DrinkWaterNoti extends Fragment {
         Intent notificationIntent = new Intent(getActivity(), WaterAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(getActivity(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-        SharedPreferences sharedPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
-        binding.switchReminder.setChecked(sharedPrefs.getBoolean("Water", false));
+        binding.switchReminder.setChecked(sharedPreferences.getBoolean("water", false));
         binding.switchReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, broadcast);
+                    sharedPreferences.edit().putBoolean("water", true).commit();
+//                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 10000, broadcast);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
                 }
                 else{
+                    sharedPreferences.edit().putBoolean("water", false).commit();
                     alarmManager.cancel(broadcast);
                 }
             }
         });
-        binding.switchReminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (binding.switchReminder.isChecked()) {
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putBoolean("Water", true);
-                    editor.commit();
-                } else {
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putBoolean("Water", false);
-                    editor.commit();
-                }
-            }
-        });
+//        binding.switchReminder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (binding.switchReminder.isChecked()) {
+//                    SharedPreferences.Editor editor = sharedPrefs.edit();
+//                    editor.putBoolean("Water", true);
+//                    editor.commit();
+//                } else {
+//                    SharedPreferences.Editor editor = sharedPrefs.edit();
+//                    editor.putBoolean("Water", false);
+//                    editor.commit();
+//                }
+//            }
+//        });
     }
 }
