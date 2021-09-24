@@ -61,11 +61,6 @@ public class FirstUseFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         navController = Navigation.findNavController(getActivity(), R.id.fragmentContainer);

@@ -32,7 +32,7 @@
         <activity android:name=".NotificationActivity2"/>
         <receiver android:name=".AlarmReceiver2"/>
         <activity android:name=".NotificationActivity3"/>
-        <receiver android:name=".AlarmReceiver3"/>
+        <receiver android:name=".alarmreceiver.WaterAlarmReceiver"/>
     </application>
 
 </manifest>

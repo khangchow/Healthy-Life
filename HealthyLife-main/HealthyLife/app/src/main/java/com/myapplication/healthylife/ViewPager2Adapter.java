@@ -7,8 +7,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.myapplication.healthylife.fragments.mainfragments.DietFragment;
-import com.myapplication.healthylife.fragments.mainfragments.FitnessFragment;
-import com.myapplication.healthylife.fragments.mainfragments.HomeFragment;
+import com.myapplication.healthylife.fragments.homefragment.HomeFragment;
 import com.myapplication.healthylife.fragments.mainfragments.MainFitnessFragment;
 
 public class ViewPager2Adapter extends FragmentStateAdapter {

@@ -1,4 +1,4 @@
-package com.myapplication.healthylife.fragments.mainfragments;
+package com.myapplication.healthylife.fragments.homefragment;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.myapplication.healthylife;
+package com.myapplication.healthylife.fragments.homefragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.myapplication.healthylife.R;
 
 import java.util.Calendar;
 
@@ -26,11 +28,11 @@ public class AboutUs extends Fragment {
         View aboutPage = new AboutPage(getActivity())
                 .isRTL(false)
                 .setDescription("Healthy Life - Stay strong and fit!")
-                .addItem(new Element().setTitle("Version 1.0"))
+                .addItem(new Element().setTitle("Version 2.0"))
                 .addGroup("CONNECT WITH US!")
-                .addEmail("chphat19@apcs.vn")
-                .addWebsite("https://www.facebook.com/groups/1012974159239556")
-                .addYoutube("LedkkIoDfoc")
+                .addEmail("khangchow@gmail.com")
+                .addWebsite("https://www.facebook.com/profile.php?id=100032225955405")
+                .addYoutube("")
                 .addItem(createCopyright())
                 .create();
         v=aboutPage;
@@ -39,7 +41,7 @@ public class AboutUs extends Fragment {
     private Element createCopyright()
     {
         Element copyright = new Element();
-        @SuppressLint("DefaultLocale") final String copyrightString = String.format("Copyright %d by Team HealthyLife APCS19", Calendar.getInstance().get(Calendar.YEAR));
+        @SuppressLint("DefaultLocale") final String copyrightString = String.format("Copyright %d by Chow Minh Khang", Calendar.getInstance().get(Calendar.YEAR));
         copyright.setTitle(copyrightString);
         // copyright.setIcon(R.mipmap.ic_launcher);
         copyright.setGravity(Gravity.CENTER);

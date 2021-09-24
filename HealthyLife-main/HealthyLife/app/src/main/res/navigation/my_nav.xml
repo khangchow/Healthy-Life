@@ -134,7 +134,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutUs"
-        android:name="com.myapplication.healthylife.AboutUs"
+        android:name="com.myapplication.healthylife.fragments.homefragment.AboutUs"
         android:label="About Us"
         tools:layout="@layout/fragment_about_us">
         <action
@@ -143,7 +143,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFitness"
-        android:name="com.myapplication.healthylife.AboutFitness"
+        android:name="com.myapplication.healthylife.fragments.homefragment.AboutFitness"
         android:label="About Fitness"
         tools:layout="@layout/fragment_about_fitness">
         <action
@@ -152,7 +152,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutDiet"
-        android:name="com.myapplication.healthylife.AboutDiet"
+        android:name="com.myapplication.healthylife.fragments.homefragment.AboutDiet"
         android:label="About Diet"
         tools:layout="@layout/fragment_about_diet">
         <action

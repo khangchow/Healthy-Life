@@ -42,6 +42,7 @@ public class LaunchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("VIEW", "onCreateView: ");
         sharedPreferences = AppPrefs.getInstance(getContext());
         db = new DatabaseHelper(getContext());
         binding = FragmentLaunchBinding.inflate(getLayoutInflater());
@@ -49,9 +50,14 @@ public class LaunchFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onStart() {
+        super.onStart();
+        Log.d("VIEW", "onStart: ");
+        navController = Navigation.findNavController(getActivity(), R.id.fragmentContainer);
+        checkAutoLogin();
+    }
 
+    private void checkAutoLogin() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -83,16 +89,11 @@ public class LaunchFragment extends Fragment {
                         db.addExercise(ex);
                     }
                     sharedPreferences.edit().putString("lastLogin", now).apply();
+
                     navController.navigate(R.id.action_launchFragment_to_mainFragment);
                 }
             }
-        }, 0);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        navController = Navigation.findNavController(getActivity(), R.id.fragmentContainer);
+        }, 1000);
     }
 
     @Override
@@ -100,6 +101,7 @@ public class LaunchFragment extends Fragment {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
     }
+
     @Override
     public void onStop() {
         super.onStop();

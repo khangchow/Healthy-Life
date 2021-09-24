@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".AboutDiet"
+    tools:context=".fragments.homefragment.AboutDiet"
     android:orientation="vertical"
     android:padding="15dp"
     android:background="@drawable/gradient_background">

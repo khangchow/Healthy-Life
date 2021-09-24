@@ -16,45 +16,45 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.myapplication.healthylife.alarmreceiver.WaterAlarmReceiver;
+import com.myapplication.healthylife.databinding.FragmentDrinkWaterNotiBinding;
+
 import java.util.Calendar;
 
 public class DrinkWaterNoti extends Fragment {
+    private FragmentDrinkWaterNotiBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            View v = inflater.inflate(R.layout.fragment_drink_water_noti, container, false);
-            return v;
+            binding = FragmentDrinkWaterNotiBinding.inflate(getLayoutInflater());
+            return binding.getRoot();
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AlarmManager alarmManager = (AlarmManager) getActivity(). getSystemService(Context.ALARM_SERVICE);
-        Intent notificationIntent = new Intent(getActivity(), AlarmReceiver3.class);
+        Intent notificationIntent = new Intent(getActivity(), WaterAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(getActivity(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        int ALARM_DELAY_IN_SECOND = 60;
-        long alarmTimeAtUTC = System.currentTimeMillis() + ALARM_DELAY_IN_SECOND * 1_000L;
 
-        Switch simpleSwitch = (Switch) view.findViewById(R.id.switch1);
         SharedPreferences sharedPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
-        simpleSwitch.setChecked(sharedPrefs.getBoolean("Water", false));
-        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.switchReminder.setChecked(sharedPrefs.getBoolean("Water", false));
+        binding.switchReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTimeAtUTC, 60000, broadcast);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, broadcast);
                 }
                 else{
                     alarmManager.cancel(broadcast);
                 }
             }
         });
-        simpleSwitch.setOnClickListener(new View.OnClickListener() {
+        binding.switchReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (simpleSwitch.isChecked()) {
+                if (binding.switchReminder.isChecked()) {
                     SharedPreferences.Editor editor = sharedPrefs.edit();
                     editor.putBoolean("Water", true);
                     editor.commit();
