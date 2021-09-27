@@ -161,7 +161,7 @@
     </fragment>
     <fragment
         android:id="@+id/commonKnowledge"
-        android:name="com.myapplication.healthylife.CommonKnowledge"
+        android:name="com.myapplication.healthylife.fragments.homefragment.CommonKnowledge"
         android:label="About BMI"
         tools:layout="@layout/fragment_common_knowledge">
         <action

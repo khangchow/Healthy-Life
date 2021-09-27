@@ -27,11 +27,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".NotificationActivity" />
-        <receiver android:name=".AlarmReceiver"/>
-        <activity android:name=".NotificationActivity2"/>
-        <receiver android:name=".AlarmReceiver2"/>
-        <activity android:name=".NotificationActivity3"/>
+        <receiver android:name=".alarmreceiver.StandUpAlarmReceiver"/>
+        <receiver android:name=".alarmreceiver.BMIAlarmReceiver"/>
         <receiver android:name=".alarmreceiver.WaterAlarmReceiver"/>
     </application>
 

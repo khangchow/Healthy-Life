@@ -1,4 +1,4 @@
-package com.myapplication.healthylife;
+package com.myapplication.healthylife.fragments.homefragment;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,29 +10,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.Calendar;
+import com.myapplication.healthylife.alarmreceiver.BMIAlarmReceiver;
+import com.myapplication.healthylife.databinding.FragmentCommonKnowledgeBinding;
+import com.myapplication.healthylife.local.AppPrefs;
 
 public class CommonKnowledge extends Fragment {
+    private FragmentCommonKnowledgeBinding binding;
+    private SharedPreferences sharedPreferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_common_knowledge, container, false);
-        return v;
+        sharedPreferences = AppPrefs.getInstance(getContext());
+        binding = FragmentCommonKnowledgeBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button btnLearnMore = (Button) getActivity().findViewById(R.id.btnMoreBMI);
-        btnLearnMore.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnMoreBMI.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -43,39 +47,22 @@ public class CommonKnowledge extends Fragment {
         });
 
         AlarmManager alarmManager = (AlarmManager) getActivity(). getSystemService(Context.ALARM_SERVICE);
-        Intent notificationIntent = new Intent(getActivity(), AlarmReceiver2.class);
+        Intent notificationIntent = new Intent(getActivity(), BMIAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(getActivity(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Calendar cal = Calendar.getInstance();
-
-        Switch simpleSwitch = (Switch) view.findViewById(R.id.switch1);
-        SharedPreferences sharedPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
-        simpleSwitch.setChecked(sharedPrefs.getBoolean("BMI", false));
-        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.switch1.setChecked(sharedPreferences.getBoolean("bmi", false));
+        binding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 4*60*60, broadcast);
+                    sharedPreferences.edit().putBoolean("bmi", true).commit();
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
                 }
                 else{
+                    sharedPreferences.edit().putBoolean("bmi", false).commit();
                     alarmManager.cancel(broadcast);
                 }
             }
         });
-        simpleSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(simpleSwitch.isChecked())  {
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putBoolean("BMI", true);
-                    editor.commit();
-                }
-                else{
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putBoolean("BMI", false);
-                    editor.commit();                }
-            }
-        });
-
     }
 }

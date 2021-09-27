@@ -20,31 +20,30 @@ import com.myapplication.healthylife.R;
 
 import java.util.Date;
 
-public class WaterAlarmReceiver extends BroadcastReceiver {
-    private static final String CHANNEL_ID = "CHANNEL 1";
-    private static final String CHANNEL_NAME = "DRINK WATER CHANNEL";
-    private static final String BIGTEXT = "Staying Hydrated is important to be Fit and Active";
+public class StandUpAlarmReceiver extends BroadcastReceiver {
+    private static final String CHANNEL_ID = "CHANNEL 2";
+    private static final String CHANNEL_NAME = "STAND UP CHANNEL";
+    private static final String BIGTEXT = "Stand up and move a little for one minute!";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        Intent notificationIntent = new Intent(context, NotificationActivity3.class);
+//        Intent notificationIntent = new Intent(context, NotificationActivity.class);
 
 //        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-//        stackBuilder.addParentStack(NotificationActivity3.class);
+//        stackBuilder.addParentStack(NotificationActivity.class);
 //        stackBuilder.addNextIntent(notificationIntent);
 //
 //        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
         PendingIntent pendingIntent = new NavDeepLinkBuilder(context)
                 .setComponentName(MainActivity.class)
                 .setGraph(R.navigation.my_nav)
-                .setDestination(R.id.drinkWaterNoti)
+                .setDestination(R.id.standUpNoti)
                 .createPendingIntent();
 
         Notification.Builder builder = new Notification.Builder(context);
 
-        Notification notification = builder.setContentTitle("Water Drinking Time!")
+        Notification notification = builder.setContentTitle("Time to stand!")
                 .setStyle(new Notification.BigTextStyle().bigText(BIGTEXT))
                 .setSmallIcon(R.drawable.logo)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.standup_noti))
@@ -70,7 +69,7 @@ public class WaterAlarmReceiver extends BroadcastReceiver {
         notificationManager.notify(getId(), notification);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent notificationIntent = new Intent(context, WaterAlarmReceiver.class);
+        Intent notificationIntent = new Intent(context, StandUpAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
     }

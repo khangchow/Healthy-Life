@@ -20,34 +20,33 @@ import com.myapplication.healthylife.R;
 
 import java.util.Date;
 
-public class WaterAlarmReceiver extends BroadcastReceiver {
-    private static final String CHANNEL_ID = "CHANNEL 1";
-    private static final String CHANNEL_NAME = "DRINK WATER CHANNEL";
-    private static final String BIGTEXT = "Staying Hydrated is important to be Fit and Active";
+public class BMIAlarmReceiver extends BroadcastReceiver {
+    private static final String CHANNEL_ID = "CHANNEL 3";
+    private static final String CHANNEL_NAME = "BMI UPDATE CHANNEL";
+    private static final String BIGTEXT = "It's time to check and note down your BMI to see how you have changed!";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        Intent notificationIntent = new Intent(context, NotificationActivity3.class);
+//        Intent notificationIntent = new Intent(context, NotificationActivity.class);
 
 //        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-//        stackBuilder.addParentStack(NotificationActivity3.class);
+//        stackBuilder.addParentStack(NotificationActivity.class);
 //        stackBuilder.addNextIntent(notificationIntent);
 //
 //        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
         PendingIntent pendingIntent = new NavDeepLinkBuilder(context)
                 .setComponentName(MainActivity.class)
                 .setGraph(R.navigation.my_nav)
-                .setDestination(R.id.drinkWaterNoti)
+                .setDestination(R.id.commonKnowledge)
                 .createPendingIntent();
 
         Notification.Builder builder = new Notification.Builder(context);
 
-        Notification notification = builder.setContentTitle("Water Drinking Time!")
+        Notification notification = builder.setContentTitle("Monthly BMI Check-up")
                 .setStyle(new Notification.BigTextStyle().bigText(BIGTEXT))
                 .setSmallIcon(R.drawable.logo)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.standup_noti))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.bmi_noti))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
@@ -70,7 +69,7 @@ public class WaterAlarmReceiver extends BroadcastReceiver {
         notificationManager.notify(getId(), notification);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent notificationIntent = new Intent(context, WaterAlarmReceiver.class);
+        Intent notificationIntent = new Intent(context, BMIAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
     }

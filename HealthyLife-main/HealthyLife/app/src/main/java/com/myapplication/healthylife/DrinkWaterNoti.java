@@ -48,7 +48,6 @@ public class DrinkWaterNoti extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
                     sharedPreferences.edit().putBoolean("water", true).commit();
-//                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 10000, broadcast);
                     alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
                 }
                 else{
@@ -57,19 +56,5 @@ public class DrinkWaterNoti extends Fragment {
                 }
             }
         });
-//        binding.switchReminder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (binding.switchReminder.isChecked()) {
-//                    SharedPreferences.Editor editor = sharedPrefs.edit();
-//                    editor.putBoolean("Water", true);
-//                    editor.commit();
-//                } else {
-//                    SharedPreferences.Editor editor = sharedPrefs.edit();
-//                    editor.putBoolean("Water", false);
-//                    editor.commit();
-//                }
-//            }
-//        });
     }
 }
