@@ -2,6 +2,7 @@ package com.myapplication.healthylife.fragments.firstusefragment;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -58,6 +60,59 @@ public class FirstUseFragment extends Fragment {
 
         initData();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b)  {
+                    binding.scrollview.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.scrollview.scrollTo(0, binding.scrollview.getBottom());
+                        }
+                    }, 500);
+                }else   {
+                    hideKeyboard(view);
+                }
+            }
+        });
+
+        binding.etWeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b)  {
+                    binding.scrollview.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.scrollview.scrollTo(0, binding.scrollview.getBottom());
+                        }
+                    }, 500);
+                }
+                else   {
+                    hideKeyboard(view);
+                }
+            }
+        });
+
+        binding.etHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b)  {
+                    binding.scrollview.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.scrollview.scrollTo(0, binding.scrollview.getBottom());
+                        }
+                    }, 500);
+                }else   {
+                    hideKeyboard(view);
+                }
+            }
+        });
     }
 
     @Override
@@ -355,5 +410,10 @@ public class FirstUseFragment extends Fragment {
     public void openKeyboard(View view)  {
         InputMethodManager inputMethodManager =  (InputMethodManager)getContext().getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(),     InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    public void hideKeyboard(View view)  {
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
