@@ -1,4 +1,4 @@
-package com.myapplication.healthylife;
+package com.myapplication.healthylife.adapter.viewpager2;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

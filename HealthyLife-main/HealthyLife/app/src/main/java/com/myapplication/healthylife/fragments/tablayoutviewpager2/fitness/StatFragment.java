@@ -21,7 +21,7 @@ import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentStatBinding;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Stat;
-import com.myapplication.healthylife.recycleviewadapters.StatRecViewAdapter;
+import com.myapplication.healthylife.adapter.recycleview.StatRecViewAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

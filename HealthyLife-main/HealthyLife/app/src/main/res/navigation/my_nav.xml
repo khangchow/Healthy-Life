@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.MainFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.MainFragment"
         android:label="Main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseDetailFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.ExerciseDetailFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness.ExerciseDetailFragment"
         android:label="Exercise Detail"
         tools:layout="@layout/fragment_exercise_detail">
         <action
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/fitnessFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.FitnessFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness.FitnessFragment"
         android:label="Exercise List"
         tools:layout="@layout/fragment_fitness">
         <action
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/timerFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.TimerFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness.TimerFragment"
         android:label="Work Out"
         tools:layout="@layout/fragment_timer">
         <action
@@ -116,7 +116,7 @@
     </fragment>
     <fragment
         android:id="@+id/standUpNoti"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.StandUpNoti"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness.StandUpNoti"
         android:label="Stand-up Notification"
         tools:layout="@layout/fragment_stand_up_noti">
         <action
@@ -125,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/statFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.StatFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness.StatFragment"
         android:label="Manage BMI"
         tools:layout="@layout/fragment_stat">
         <action
@@ -170,7 +170,7 @@
     </fragment>
     <fragment
         android:id="@+id/dietRecommendFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.DietRecommendFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.diet.DietRecommendFragment"
         android:label="Diet Recommend"
         tools:layout="@layout/fragment_diet_recommend" >
         <action
@@ -182,7 +182,7 @@
     </fragment>
     <fragment
         android:id="@+id/DishDetailFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.DishDetailFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.diet.DishDetailFragment"
         android:label="Dish Detail"
         tools:layout="@layout/fragment_dish_detail" >
         <action
@@ -191,7 +191,7 @@
     </fragment>
     <fragment
         android:id="@+id/DietDetailFragment"
-        android:name="com.myapplication.healthylife.fragments.mainfragments.DietDetailFragment"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.diet.DietDetailFragment"
         android:label="Diet Detail"
         tools:layout="@layout/fragment_diet_detail" >
         <action
@@ -203,7 +203,7 @@
     </fragment>
     <fragment
         android:id="@+id/breathe"
-        android:name="com.myapplication.healthylife.Breathe"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness.Breathe"
         android:label="Breathe"
         tools:layout="@layout/fragment_breathe">
         <action
@@ -212,7 +212,7 @@
     </fragment>
     <fragment
         android:id="@+id/drinkWaterNoti"
-        android:name="com.myapplication.healthylife.DrinkWaterNoti"
+        android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.diet.DrinkWaterNoti"
         android:label="Drink Water Reminder"
         tools:layout="@layout/fragment_drink_water_noti" />
 

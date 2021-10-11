@@ -1,10 +1,7 @@
-package com.myapplication.healthylife.recycleviewadapters;
+package com.myapplication.healthylife.adapter.recycleview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +9,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.myapplication.healthylife.R;
-import com.myapplication.healthylife.databinding.ExerciseListBinding;
 import com.myapplication.healthylife.databinding.StatListBinding;
 import com.myapplication.healthylife.local.DatabaseHelper;
-import com.myapplication.healthylife.model.Exercise;
 import com.myapplication.healthylife.model.Stat;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.ViewHolder> {

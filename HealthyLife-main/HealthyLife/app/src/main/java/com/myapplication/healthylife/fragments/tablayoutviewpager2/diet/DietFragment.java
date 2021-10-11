@@ -19,16 +19,13 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentDietBinding;
-import com.myapplication.healthylife.databinding.FragmentLaunchBinding;
 
 import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Diet;
 import com.myapplication.healthylife.model.Dish;
 import com.myapplication.healthylife.model.User;
-import com.myapplication.healthylife.recycleviewadapters.DietRecViewAdapter;
-import com.myapplication.healthylife.recycleviewadapters.DishRecSecViewAdapter;
-import com.myapplication.healthylife.recycleviewadapters.DishRecViewAdapter;
+import com.myapplication.healthylife.adapter.recycleview.DishRecSecViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;

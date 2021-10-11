@@ -2,7 +2,6 @@ package com.myapplication.healthylife.fragments.tablayoutviewpager2;
 
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -22,7 +20,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.myapplication.healthylife.R;
-import com.myapplication.healthylife.ViewPager2Adapter;
+import com.myapplication.healthylife.adapter.viewpager2.ViewPager2Adapter;
 import com.myapplication.healthylife.databinding.FragmentMainBinding;
 import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 

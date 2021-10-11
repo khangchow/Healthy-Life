@@ -1,4 +1,4 @@
-package com.myapplication.healthylife;
+package com.myapplication.healthylife.fragments.tablayoutviewpager2.diet;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

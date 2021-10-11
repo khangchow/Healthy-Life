@@ -14,15 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myapplication.healthylife.R;
-import com.myapplication.healthylife.databinding.FragmentDietBinding;
 import com.myapplication.healthylife.databinding.FragmentDietRecommendBinding;
-import com.myapplication.healthylife.databinding.FragmentLaunchBinding;
 
 import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Diet;
 import com.myapplication.healthylife.model.Dish;
-import com.myapplication.healthylife.recycleviewadapters.DietRecViewAdapter;
+import com.myapplication.healthylife.adapter.recycleview.DietRecViewAdapter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.myapplication.healthylife;
+package com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentBreatheBinding;
 import com.myapplication.healthylife.local.AppPrefs;
 
