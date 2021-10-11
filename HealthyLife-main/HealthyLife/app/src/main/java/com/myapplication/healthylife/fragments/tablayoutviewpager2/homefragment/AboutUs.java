@@ -1,4 +1,4 @@
-package com.myapplication.healthylife.fragments.homefragment;
+package com.myapplication.healthylife.fragments.tablayoutviewpager2.homefragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

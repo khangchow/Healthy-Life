@@ -76,10 +76,9 @@ public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setMessage("Do you want to delete this record?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText(mContext, String.valueOf(stat.getId()), Toast.LENGTH_SHORT).show();
                                     if (db.deleteStat(stat.getId()))    {
                                         stats.remove(stat);
                                         notifyItemRemoved(getAdapterPosition());
@@ -90,7 +89,7 @@ public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.
                                     }
                                 }
                             })
-                            .setNegativeButton("No", null)
+                            .setPositiveButton("No", null)
                             .show();
                 }
             });

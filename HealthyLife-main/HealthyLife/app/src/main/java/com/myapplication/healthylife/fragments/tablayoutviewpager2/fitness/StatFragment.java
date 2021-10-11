@@ -1,4 +1,4 @@
-package com.myapplication.healthylife.fragments.mainfragments;
+package com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness;
 
 import android.app.Dialog;
 import android.os.Bundle;

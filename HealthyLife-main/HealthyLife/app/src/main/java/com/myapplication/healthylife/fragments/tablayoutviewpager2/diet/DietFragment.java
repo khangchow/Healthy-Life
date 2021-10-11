@@ -1,4 +1,4 @@
-package com.myapplication.healthylife.fragments.mainfragments;
+package com.myapplication.healthylife.fragments.tablayoutviewpager2.diet;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
