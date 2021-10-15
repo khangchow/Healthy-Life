@@ -73,16 +73,19 @@ public class DietFragment extends Fragment {
             index++;
         }
         if(index == diets.size()){
-            binding.LoveDishNotification.setText("No dishes found! " +
-                    "Please pick a diet by clicking recommend button and doing further actions.");
+//            binding.LoveDishNotification.setText("No dishes found! " +
+//                    "Please pick a diet by clicking recommend button and doing further actions.");
+            binding.layoutTodayList.setVisibility(View.GONE);
         }
         else {
             int Check = AssignDishesToDiet(diets.get(index));
-            if (Check == 0)
-                binding.LoveDishNotification.setText("Not enough dishes found! " +
-                        "Please pick another diet by clicking recommend button and doing further actions.");
+            if (Check == 0) {
+//                binding.LoveDishNotification.setText("Not enough dishes found! " +
+//                        "Please pick another diet by clicking recommend button and doing further actions.");
+                binding.layoutTodayList.setVisibility(View.GONE);
+            }
             else {
-
+                binding.layoutTodayList.setVisibility(View.VISIBLE);
                 Calendar calendar = Calendar.getInstance();
                 int day = calendar.get(Calendar.DAY_OF_WEEK);
                 ArrayList<Dish> breakfast = new ArrayList<>();

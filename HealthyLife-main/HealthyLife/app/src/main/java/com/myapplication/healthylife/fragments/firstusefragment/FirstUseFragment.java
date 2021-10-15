@@ -246,7 +246,7 @@ public class FirstUseFragment extends Fragment {
                 "Shoe (Optional)",900,0,1,60,200));
 
         exercises.add(new Exercise(-1,"Skipping Rope", "Moderate", 70, R.drawable.skippingrope, new int[]{4, 5}, R.raw.skippingrope,
-                "The benefits of jumping rope include burning calories, better coordination, stronger bones, a lower injury risk, and improved heart health.\n.",
+                "The benefits of jumping rope include burning calories, better coordination, stronger bones, a lower injury risk, and improved heart health.\n",
                 "- Stand straight with your feet close to each other.\n- Swing the ropes and jump\n\nNOTICE:\n- 2 sets/time.\n- 10s resting between sets.\n- 1 minute resting before moving to other exercises.",
                 "Ropes",60,10,3,60,120));
 

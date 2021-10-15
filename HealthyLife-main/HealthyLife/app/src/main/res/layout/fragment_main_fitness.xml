@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.mainfragments.MainFitnessFragment"
     android:background="@drawable/gradient_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -165,7 +164,7 @@
         android:id="@+id/btnTimer"
         android:fontFamily="@font/custom_font"
         app:layout_constraintBottom_toTopOf="@id/btnExercise"
-        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintWidth_percent="0.8"
         android:textSize="20sp"
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
@@ -180,7 +179,7 @@
         android:fontFamily="@font/custom_font"
         app:layout_constraintTop_toBottomOf="@id/btnTimer"
         app:layout_constraintBottom_toTopOf="@id/btnBreathe"
-        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintWidth_percent="0.8"
         android:textSize="20sp"
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
@@ -195,7 +194,7 @@
         android:fontFamily="@font/custom_font"
         app:layout_constraintTop_toBottomOf="@id/btnExercise"
         app:layout_constraintBottom_toTopOf="@id/btnStandup"
-        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintWidth_percent="0.8"
         android:textSize="20sp"
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
@@ -210,7 +209,7 @@
         android:fontFamily="@font/custom_font"
         app:layout_constraintTop_toBottomOf="@id/btnBreathe"
         app:layout_constraintBottom_toTopOf="@id/btnStat"
-        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintWidth_percent="0.8"
         android:textSize="20sp"
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
@@ -225,7 +224,7 @@
         android:fontFamily="@font/custom_font"
         app:layout_constraintTop_toBottomOf="@id/btnStandup"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintWidth_percent="0.8"
         android:textSize="20sp"
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
