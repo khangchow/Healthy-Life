@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment {
         binding.tvHello.setText("Hello, "+user.getName());
 
         if (challengeCompleted())   {
+            // TODO: 10/16/2021 reset diet, improve diet detail interface
             Dialog dialog = new Dialog(getContext());
             dialog.setContentView(R.layout.custom_dialog_refresh);
 

@@ -23,8 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/layoutTodayList">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/LoveDishNotification"
@@ -38,66 +37,73 @@
                 android:layout_marginTop="30dp" />
 
             <LinearLayout
-                android:id="@+id/DietMainBackground"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/LoveDishNotificationBreakfast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/breakfast"
-                    android:textSize="25sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/custom_font"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvDishDetailTodayLunch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="30dp">
+                android:id="@+id/layoutTodayList">
 
-                <TextView
-                    android:id="@+id/LoveDishNotificationLunch"
+                <LinearLayout
+                    android:id="@+id/DietMainBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/LoveDishNotificationBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/breakfast"
+                        android:textSize="25sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/custom_font"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDishDetailTodayLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lunch"
-                    android:textSize="25sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/custom_font" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="30dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvDishDetailTodayBreakfast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/LoveDishNotificationLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lunch"
+                        android:textSize="25sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/custom_font" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="30dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDishDetailTodayBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/LoveDishNotificationDinner"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dinner"
-                    android:textSize="25sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/custom_font" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="30dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvDishDetailTodayDinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/LoveDishNotificationDinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dinner"
+                        android:textSize="25sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/custom_font" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDishDetailTodayDinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -113,7 +119,7 @@
                 android:background = "@drawable/button_design"
                 android:text="@string/drink_water"
                 android:textColor="@color/black"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textSize="20sp"
                 android:fontFamily="@font/custom_font"
                 app:layout_constraintWidth_percent="0.9"
@@ -121,7 +127,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/RecommendDietButton"
-                android:layout_margin="10dp"/>
+                android:layout_margin="20dp" />
             <Button
                 android:id="@+id/RecommendDietButton"
                 android:layout_width="0dp"
@@ -129,7 +135,7 @@
                 android:background = "@drawable/button_design"
                 android:text="@string/recommend"
                 android:textColor="@color/black"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textSize="20sp"
                 android:fontFamily="@font/custom_font"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +143,7 @@
                 app:layout_constraintTop_toBottomOf="@id/DrinkWaterButton"
                 app:layout_constraintBottom_toTopOf="@id/ResetDietButton"
                 app:layout_constraintWidth_percent="0.9"
-                android:layout_margin="10dp"/>
+                android:layout_margin="20dp"/>
             <Button
                 android:id="@+id/ResetDietButton"
                 android:layout_width="0dp"
@@ -145,7 +151,7 @@
                 android:background = "@drawable/button_design"
                 android:text="Reset"
                 android:textColor="@color/black"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textSize="20sp"
                 android:fontFamily="@font/custom_font"
                 app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +159,7 @@
                 app:layout_constraintTop_toBottomOf="@id/RecommendDietButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.9"
-                android:layout_margin="10dp"/>
+                android:layout_margin="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>

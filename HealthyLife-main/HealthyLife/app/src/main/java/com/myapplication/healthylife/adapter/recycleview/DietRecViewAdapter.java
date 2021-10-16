@@ -11,7 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapplication.healthylife.R;
-import com.myapplication.healthylife.databinding.DietListBinding;
+import com.myapplication.healthylife.databinding.FoodListBinding;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Diet;
 
@@ -32,7 +32,7 @@ public class DietRecViewAdapter extends RecyclerView.Adapter<DietRecViewAdapter.
     @NonNull
     @Override
     public DietRecViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(DietListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FoodListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -52,19 +52,19 @@ public class DietRecViewAdapter extends RecyclerView.Adapter<DietRecViewAdapter.
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
 
-        DietListBinding binding;
+        FoodListBinding binding;
 
-        public ViewHolder(@NonNull DietListBinding itemView) {
+        public ViewHolder(@NonNull FoodListBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
         }
 
         public void bind(Diet diet){
-            binding.RVDietListImage.setImageResource(diet.getImage());
-            binding.dietName.setText(diet.getName());
-            binding.RVDietContentDescription.setText(diet.getDescription());
+            binding.image.setImageResource(diet.getImage());
+            binding.tvName.setText(diet.getName());
+            binding.tvDescription.setText(diet.getDescription());
 
-            binding.DietListRV.setOnClickListener(new View.OnClickListener() {
+            binding.parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
