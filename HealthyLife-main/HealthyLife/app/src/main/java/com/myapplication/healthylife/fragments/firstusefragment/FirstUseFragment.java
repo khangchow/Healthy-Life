@@ -2,13 +2,18 @@ package com.myapplication.healthylife.fragments.firstusefragment;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -17,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -30,6 +36,7 @@ import com.myapplication.healthylife.model.Dish;
 import com.myapplication.healthylife.model.Exercise;
 import com.myapplication.healthylife.model.Stat;
 import com.myapplication.healthylife.model.User;
+import com.myapplication.healthylife.utils.KeyboardUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,16 +72,25 @@ public class FirstUseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        listenEditTextFocus();
+
+
+    }
+
+    private void listenEditTextFocus() {
         binding.etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b)  {
+                    Log.d("POS", binding.scrollview.getVerticalScrollbarPosition()+" "+ binding.scrollview.getBottom());
                     binding.scrollview.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            binding.scrollview.scrollTo(0, binding.scrollview.getBottom());
+                            scrollToView(binding.scrollview, view);
                         }
                     }, 500);
+
                 }else   {
                     hideKeyboard(view);
                 }
@@ -88,7 +104,7 @@ public class FirstUseFragment extends Fragment {
                     binding.scrollview.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            binding.scrollview.scrollTo(0, binding.scrollview.getBottom());
+                            scrollToView(binding.scrollview, view);
                         }
                     }, 500);
                 }
@@ -105,7 +121,7 @@ public class FirstUseFragment extends Fragment {
                     binding.scrollview.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            binding.scrollview.scrollTo(0, binding.scrollview.getBottom());
+                            scrollToView(binding.scrollview, view);
                         }
                     }, 500);
                 }else   {
@@ -129,46 +145,86 @@ public class FirstUseFragment extends Fragment {
                         if (!binding.etWeight.getText().toString().equals("")
                                 && validateFloat(binding.etWeight.getText().toString())
                                 && (Float.valueOf(binding.etWeight.getText().toString()) >= 1 && Float.valueOf(binding.etWeight.getText().toString()) <= 600))    {
-                            User user = new User(binding.etName.getText().toString(),
-                                    Float.valueOf(binding.etHeight.getText().toString()),
-                                    Float.valueOf(binding.etWeight.getText().toString()));
-
-                            double bmi = Math.round(((user.getWeight()/Math.pow(user.getHeight()/100, 2))*10)/10);
-                            Log.d("DATA", String.valueOf(bmi));
-                            user.setBmi(bmi);
-
-                            sharedPreferences.edit().putBoolean("isLogout", false).apply();
-
-                            sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
-
-                            date = new Date();
-                            String now = sdf.format(date);
-
-                            sharedPreferences.edit().putString("lastLogin", now).apply();
-
-                            saveListOfExercisesForNewUser(exercises, bmi);
-                            saveListofDietForNewUser(diets, bmi);
-                            saveListofDishForNewUser(dishes);
-                            db.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
-
+                            setUpDataForNewUser();
                             navController.navigate(R.id.action_firstUseFragment_to_mainFragment);
                         }else   {
-                            binding.etWeight.requestFocus();
-                            openKeyboard(binding.etWeight);
+                            focusEditText(binding.etWeight);
                             Toast.makeText(getActivity(), "Invalid Weight", Toast.LENGTH_SHORT).show();
                         }
                     }else   {
-                        binding.etHeight.requestFocus();
-                        openKeyboard(binding.etHeight);
+                        focusEditText(binding.etHeight);
                         Toast.makeText(getActivity(), "Invalid Height", Toast.LENGTH_SHORT).show();
                     }
                 }else   {
-                    binding.etName.requestFocus();
-                    openKeyboard(binding.etName);
+                    focusEditText(binding.etName);
                     Toast.makeText(getActivity(), "Invalid Name", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        KeyboardUtils.addKeyboardToggleListener(getActivity(), new KeyboardUtils.SoftKeyboardToggleListener()
+        {
+            @Override
+            public void onToggleSoftKeyboard(boolean isVisible)
+            {
+                if(!isVisible)   {
+                    binding.mainLayout.requestFocus();
+                }
+            }
+        });
+    }
+
+    private void setUpDataForNewUser()  {
+        User user = new User(binding.etName.getText().toString(),
+                Float.valueOf(binding.etHeight.getText().toString()),
+                Float.valueOf(binding.etWeight.getText().toString()));
+
+        double bmi = Math.round(((user.getWeight()/Math.pow(user.getHeight()/100, 2))*10)/10);
+        Log.d("DATA", String.valueOf(bmi));
+        user.setBmi(bmi);
+
+        sharedPreferences.edit().putBoolean("isLogout", false).apply();
+
+        sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
+
+        date = new Date();
+        String now = sdf.format(date);
+
+        sharedPreferences.edit().putString("lastLogin", now).apply();
+
+        saveListOfExercisesForNewUser(exercises, bmi);
+        saveListofDietForNewUser(diets, bmi);
+        saveListofDishForNewUser(dishes);
+        db.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
+    }
+
+    private void focusEditText(View view)    {
+        view.requestFocus();
+        binding.scrollview.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollToView(binding.scrollview, view);
+            }
+        }, 500);
+        openKeyboard(view);
+    }
+
+    private void scrollToView(final ScrollView scrollViewParent, final View view) {
+        // Get deepChild Offset
+        Point childOffset = new Point();
+        getDeepChildOffset(scrollViewParent, view.getParent(), view, childOffset);
+        // Scroll to child.
+        scrollViewParent.smoothScrollTo(0, childOffset.y);
+    }
+
+    private void getDeepChildOffset(final ViewGroup mainParent, final ViewParent parent, final View child, final Point accumulatedOffset) {
+        ViewGroup parentGroup = (ViewGroup) parent;
+        accumulatedOffset.x += child.getLeft();
+        accumulatedOffset.y += child.getTop();
+        if (parentGroup.equals(mainParent)) {
+            return;
+        }
+        getDeepChildOffset(mainParent, parentGroup.getParent(), parentGroup, accumulatedOffset);
     }
 
     private Boolean validateString(String str)   {
@@ -289,6 +345,7 @@ public class FirstUseFragment extends Fragment {
                 "No note","Pork, favorite veggies",
                 R.drawable.porknveg,true, false, false, false,true, true));
     }
+
     private void saveListofDietForNewUser(ArrayList<Diet> diets, double bmi){
         boolean startRecommended = false;
         boolean startOthers = false;
@@ -326,12 +383,14 @@ public class FirstUseFragment extends Fragment {
             db.addDiet(d);
         }
     }
+
     private void saveListofDishForNewUser(ArrayList<Dish> Dishes){
 
         for (Dish d:Dishes){
             db.addDish(d);
         }
     }
+
     private void saveListOfExercisesForNewUser(ArrayList<Exercise> exercise, double bmi)    {
         boolean startRecommended = false;
         boolean startOthers = false;
@@ -416,4 +475,5 @@ public class FirstUseFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
 }

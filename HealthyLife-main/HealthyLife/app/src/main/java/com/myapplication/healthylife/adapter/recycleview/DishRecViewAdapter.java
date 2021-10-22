@@ -11,7 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapplication.healthylife.R;
-import com.myapplication.healthylife.databinding.DishListBinding;
+import com.myapplication.healthylife.databinding.FoodListBinding;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Dish;
 
@@ -30,7 +30,7 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
     @NonNull
     @Override
     public DishRecViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DishRecViewAdapter.ViewHolder(DishListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new DishRecViewAdapter.ViewHolder(FoodListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -48,19 +48,19 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
     }
     protected class ViewHolder extends RecyclerView.ViewHolder{
 
-        DishListBinding binding;
+        FoodListBinding binding;
 
-        public ViewHolder(@NonNull DishListBinding itemView) {
+        public ViewHolder(@NonNull FoodListBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
         }
 
         public void bind(Dish dish){
-            binding.dishName.setText(dish.getName());
-            binding.RVDishContentDescription.setText(dish.getDescription());
-             binding.RVDishListImage.setImageResource(dish.getImage());
+            binding.tvName.setText(dish.getName());
+            binding.tvDescription.setText(dish.getDescription());
+             binding.image.setImageResource(dish.getImage());
 
-            binding.DishListRV.setOnClickListener(new View.OnClickListener() {
+            binding.parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
