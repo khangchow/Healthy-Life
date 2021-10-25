@@ -1,113 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#434040"
-    android:orientation="vertical"
-    android:padding="30dp">
-
-    <me.grantland.widget.AutofitTextView
-        android:id="@+id/tvGoodJob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:layout_gravity="center"
-        android:fontFamily="@font/custom_font"
-        android:text="Good job!!!"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:layout_marginTop="10dp"
-        android:background="@color/purple_500"
-        android:padding="10dp"
-        android:textAllCaps="true"/>
-
-    <me.grantland.widget.AutofitTextView
-        android:id="@+id/tvCongrats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="3"
-        android:layout_gravity="center"
-        android:fontFamily="@font/custom_font"
-        android:text="Challenge\ncompleted\n----------------"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:layout_marginTop="30dp"
-        android:gravity="center"/>
-
-    <me.grantland.widget.AutofitTextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:layout_gravity="center"
-        android:fontFamily="@font/custom_font"
-        android:text="Let us know your result"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:layout_marginTop="30dp"
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:hint="Your Height"
-        android:id="@+id/etHeight"
-        android:textColor="@color/black"
-        android:fontFamily="@font/custom_font"
-        android:background="@drawable/custom_edittext"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:hint="Your Weight"
-        android:id="@+id/etWeight"
-        android:textColor="@color/black"
-        android:background="@drawable/custom_edittext"
-        android:fontFamily="@font/custom_font"/>
+    android:id="@+id/scrollview">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:weightSum="2">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:id="@+id/parent">
 
-        <Button
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/tvGoodJob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="add"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/btnAdd"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_gravity="center"
             android:fontFamily="@font/custom_font"
-            android:background="@drawable/custom_button"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"/>
+            android:text="New status"
+            android:textColor="@color/white"
+            android:textSize="50sp"
+            android:background="@drawable/custom_stat_table"
+            android:padding="10dp"
+            android:textAllCaps="true"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
 
-        <Button
-            android:layout_width="match_parent"
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="cancel"
-
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/btnCancel"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_gravity="center"
             android:fontFamily="@font/custom_font"
-            android:background="@drawable/custom_button"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
+            android:text="Let us know your result"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:layout_marginTop="30dp"
             />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:hint="Your Height"
+            android:id="@+id/etHeight"
+            android:textColor="@color/black"
+            android:fontFamily="@font/custom_font"
+            android:background="@drawable/custom_edittext"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:hint="Your Weight"
+            android:id="@+id/etWeight"
+            android:textColor="@color/black"
+            android:background="@drawable/custom_edittext"
+            android:fontFamily="@font/custom_font"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:weightSum="2">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="add"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/btnAdd"
+                android:fontFamily="@font/custom_font"
+                android:background="@drawable/custom_button"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="cancel"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/btnCancel"
+                android:fontFamily="@font/custom_font"
+                android:background="@drawable/custom_button"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

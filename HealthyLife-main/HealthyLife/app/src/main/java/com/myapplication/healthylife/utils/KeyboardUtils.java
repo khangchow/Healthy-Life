@@ -1,5 +1,7 @@
 package com.myapplication.healthylife.utils;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 import android.app.Activity;
 import android.graphics.Rect;
 import android.view.View;
@@ -124,4 +126,13 @@ public class KeyboardUtils implements ViewTreeObserver.OnGlobalLayoutListener
         mScreenDensity = act.getResources().getDisplayMetrics().density;
     }
 
+    public static void openKeyboard(View view)  {
+        InputMethodManager inputMethodManager =  (InputMethodManager)view.getContext().getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInputFromWindow(view.getApplicationWindowToken(),     InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    public static void hideKeyboard(View view)  {
+        InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }

@@ -3,14 +3,11 @@ package com.myapplication.healthylife.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,9 +19,10 @@ import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentLaunchBinding;
 import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
-import com.myapplication.healthylife.model.Diet;
 import com.myapplication.healthylife.model.Exercise;
 import com.myapplication.healthylife.model.User;
+import com.myapplication.healthylife.utils.DatabaseUtils;
+import com.myapplication.healthylife.utils.ExerciseUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,14 +35,13 @@ public class LaunchFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private Date date;
-    private DatabaseHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("VIEW", "onCreateView: ");
         sharedPreferences = AppPrefs.getInstance(getContext());
-        db = new DatabaseHelper(getContext());
+        DatabaseUtils.getDatabase(getContext());
         binding = FragmentLaunchBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
@@ -71,8 +68,7 @@ public class LaunchFragment extends Fragment {
 
                     String lastLogin = sharedPreferences.getString("lastLogin", null) == null? now: sharedPreferences.getString("lastLogin", null);
 
-                    ArrayList<Exercise> list = db.getExerciseList();
-
+                    ArrayList<Exercise> list = ExerciseUtils.getExerciseList();
                     if (!lastLogin.equals(now)) {
                         User user = new Gson().fromJson(data, User.class);
                         user.setCaloFitness(0);
@@ -83,10 +79,10 @@ public class LaunchFragment extends Fragment {
                         }
                     }
 
-                    db.deleteAllExercises();
+                    ExerciseUtils.removeExercises();
 
                     for (Exercise ex: list) {
-                        db.addExercise(ex);
+                        ExerciseUtils.addExercise(ex);
                     }
                     sharedPreferences.edit().putString("lastLogin", now).apply();
 

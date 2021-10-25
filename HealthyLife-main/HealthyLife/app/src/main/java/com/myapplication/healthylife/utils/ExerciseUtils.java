@@ -1,259 +1,16 @@
-package com.myapplication.healthylife.fragments.tablayoutviewpager2.homefragment;
+package com.myapplication.healthylife.utils;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-
-import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
 import com.myapplication.healthylife.R;
-
-import com.myapplication.healthylife.databinding.FragmentHomeBinding;
-import com.myapplication.healthylife.local.AppPrefs;
-import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Exercise;
-import com.myapplication.healthylife.model.Stat;
-import com.myapplication.healthylife.model.User;
-import com.myapplication.healthylife.utils.KeyboardUtils;
-import com.myapplication.healthylife.utils.ScrollUtils;
-import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
+public class ExerciseUtils {
 
-public class HomeFragment extends Fragment {
-
-    private FragmentHomeBinding binding;
-    private NavController navController;
-    private SharedPreferences sharedPreferences;
-    private DatabaseHelper db;
-    private SimpleDateFormat dateTimeSdf = new SimpleDateFormat("dd/MM/yyyy, kk:mm:ss");
-    private Date date;
-    private ArrayList<Exercise> exercises = new ArrayList<>();
-    private User user;
-    private CommunicateViewModel viewModel;
-    private TextInputLayout etHeight, etWeight;;
-    private Button btnAdd, btnCancel;
-    private ScrollView scrollview;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        sharedPreferences = AppPrefs.getInstance(getContext());
-        db = new DatabaseHelper(getContext());
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
-
-        String data = sharedPreferences.getString("user", null);
-        user = new Gson().fromJson(data, User.class);
-
-        viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        viewModel.pos.observe(getActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if (integer == 0)   {
-                    Log.d("TAB", "onChanged: "+user.getCaloFitness()+", "+user.getCaloDiet());
-                    String data = sharedPreferences.getString("user", null);
-                    user = new Gson().fromJson(data, User.class);
-                    binding.CaloExercise.setText(String.valueOf("-"+user.getCaloFitness()));
-                    binding.CaloDiet.setText(String.valueOf("+"+user.getCaloDiet()));
-                    binding.CaloTotal.setText(String.valueOf(user.getCaloDiet()-user.getCaloFitness()));
-                }
-            }
-        });
-
-        binding.CaloExercise.setText(String.valueOf("-"+user.getCaloFitness()));
-        binding.CaloDiet.setText(String.valueOf("+"+user.getCaloDiet()));
-        binding.CaloTotal.setText(String.valueOf(user.getCaloDiet()-user.getCaloFitness()));
-
-        binding.tvHello.setText("Hello, "+user.getName());
-
-        if (challengeCompleted())   {
-            // TODO: 10/16/2021 reset diet, improve diet detail interface
-            displayUpdateHealthStatusDialog();
-        }
-
-    }
-
-    private void listenFocus() {
-        etHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b)  {
-                    Log.d("POS", scrollview.getVerticalScrollbarPosition()+" "+ scrollview.getBottom());
-                    scrollview.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ScrollUtils.scrollToView(scrollview, view);
-                        }
-                    }, 500);
-
-                }else   {
-                    KeyboardUtils.hideKeyboard(view);
-                }
-            }
-        });
-
-        etWeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b)  {
-                    scrollview.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ScrollUtils.scrollToView(scrollview, view);
-                        }
-                    }, 500);
-                }
-                else   {
-                    KeyboardUtils.hideKeyboard(view);
-                }
-            }
-        });
-
-    }
-
-    private void displayUpdateHealthStatusDialog()  {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.custom_dialog_refresh);
-
-        etHeight = dialog.findViewById(R.id.etHeight);
-        etWeight = dialog.findViewById(R.id.etWeight);
-        btnAdd = dialog.findViewById(R.id.btnAdd);
-        btnCancel = dialog.findViewById(R.id.btnCancel);
-        scrollview = dialog.findViewById(R.id.scrollview);
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                float height;
-                float weight;
-
-                if (!etHeight.getEditText().getText().toString().equals("") && !etWeight.getEditText().getText().toString().equals(""))   {
-                    initData();
-                    height = Float.valueOf(etHeight.getEditText().getText().toString());
-                    weight = Float.valueOf(etWeight.getEditText().getText().toString());
-                    double bmi = Math.round(((weight/Math.pow(height/100, 2))*10)/10);
-                    date = new Date();
-                    Stat stat = new Stat(-1, height, weight, bmi, dateTimeSdf.format(date));
-                    if (db.addStat(stat))   {
-                        String data = sharedPreferences.getString("user", null);
-                        User user = new Gson().fromJson(data, User.class);
-                        user.setHeight(height);
-                        user.setWeight(weight);
-                        user.setBmi(bmi);
-                        sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
-                        db.deleteAllExercises();
-                        saveListOfExercisesForNewUser(exercises, bmi);
-                        dialog.dismiss();
-                    }
-                }else   {
-                    Toast.makeText(getActivity(), "Please Fill All Information", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-    }
-
-        private boolean challengeCompleted()   {
-        ArrayList<Exercise> exercises = db.getRecommendedExerciseList();
-        for (Exercise ex: exercises
-             ) {
-            if (ex.getProgress() < 14)    {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        navController = Navigation.findNavController(getActivity(), R.id.fragmentContainer);
-
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sharedPreferences.edit().putString("user", null).apply();
-                db.deleteAllExercises();
-                db.deleteAllStat();
-                db.deleteAllDiets();
-                db.deleteAllDishes();
-                navController.navigate(R.id.action_mainFragment_to_firstUseFragment);
-            }
-        });
-        binding.btnAboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayUpdateHealthStatusDialog();
-//                navController.navigate(R.id.action_mainFragment_to_aboutUs);
-            }
-        });
-        binding.btnAboutDiet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_mainFragment_to_aboutDiet);
-            }
-        });
-        binding.btnAboutFitness.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_mainFragment_to_aboutFitness);
-
-            }
-        });
-        binding.btnCommonInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_mainFragment_to_commonKnowledge);
-
-            }
-        });
-    }
-
-    private void initData() {
+    public static ArrayList<Exercise> initExercises() {
+        ArrayList<Exercise> exercises = new ArrayList<>();
         exercises.add(new Exercise(-1,"Bridge", "Easy", 90, R.drawable.bridge, new int[]{1, 5}, R.raw.bridge,
                 "This exercise helps strengthen your core muscles, whittles your waistline, and boosts flexibility. It is a perfect way to warm up your body",
                 "- Find an open space on the floor, lie on your back floor, rest your hands at your sides, bend your knees, and place your feet flat on the floor, beneath your knees.\n- Tighten your abdominal and buttock muscles by pushing your low back into the ground.\n- Raise your hips to create a straight line from your knees to your shoulders.\n- Squeeze your core and pull your belly button back toward your spine\n- Lower the hips to return to the starting position\n- Repeat.\n\nNOTICE:\n- 15-20 reps/set.\n- 3 sets/time.\n- 10s resting between set.\n- 1 minute rest before moving to other exercise.",
@@ -322,9 +79,10 @@ public class HomeFragment extends Fragment {
 //        diets.add(new Diet(-1, "Keto Diet","The keto diet is a low carb, high fat diet. It lowers blood sugar and insulin levels and shifts the body’s metabolism away from carbs and toward fat and ketones.","Although the ketogenic diet is usually safe for most healthy people, there may be some initial side effects known as keto flu while your body adapts. You can try low-carb diẻt first for adaptation",1650,new int[]{2, 3, 4, 5},true,false, false));
 //        diets.add(new Diet(-1, "Vegan Diet","A vegan diet excludes all animal products.","Vegan diets is effective at helping people naturally reduce the amount of calories they eat, resulting in weight loss.However,Vegans may be at an increased risk of certain nutrient deficiencies.",1500, new int[]{2,3,4},true,true,true));
 //        diets.add(new Diet(-1, "3k Diet", "A diet to gain weight for underweight people","Keep exercising for balance, or you will be overwhelmed by the calories taken in.", 3000, new int[]{1}, true,true,false));
+        return exercises;
     }
 
-    private void saveListOfExercisesForNewUser(ArrayList<Exercise> exercise, double bmi)    {
+    public static void saveListOfExercisesForNewUser(ArrayList<Exercise> exercises,double bmi)    {
         boolean startRecommended = false;
         boolean startOthers = false;
         ArrayList<Exercise> result = new ArrayList<>();
@@ -343,7 +101,7 @@ public class HomeFragment extends Fragment {
         Log.d("DATA", String.valueOf(type));
 
         //add recommended ex
-        for (Exercise ex: exercise)    {
+        for (Exercise ex: exercises)    {
             for (int i: ex.getTypes())  {
                 if (i == type && !startRecommended)  {
                     ex.setFirst(true);
@@ -362,7 +120,7 @@ public class HomeFragment extends Fragment {
         }
 
         boolean isOthers;
-        for (Exercise ex: exercise)    {
+        for (Exercise ex: exercises)    {
             isOthers = true;
             for (int i: ex.getTypes()) {
                 if(i == type)    {
@@ -384,7 +142,19 @@ public class HomeFragment extends Fragment {
 
         for (Exercise ex: result) {
             Log.d("DATA", ex.getName()+" "+ex.isRecommended()+" "+ex.isOthers()+" "+ex.isFirst());
-            db.addExercise(ex);
+            addExercise(ex);
         }
+    }
+
+    public static void removeExercises()    {
+        DatabaseUtils.removeExercises();
+    }
+
+    public static void addExercise(Exercise ex)   {
+        DatabaseUtils.addExercise(ex);
+    }
+
+    public static ArrayList<Exercise> getExerciseList()    {
+        return DatabaseUtils.getExerciseList();
     }
 }

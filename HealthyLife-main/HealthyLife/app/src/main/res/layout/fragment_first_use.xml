@@ -15,7 +15,7 @@
         android:focusableInTouchMode="true"
         android:focusable="true"
         android:padding="20dp"
-        android:id="@+id/mainLayout">
+        android:id="@+id/parent">
 
         <TextView
             android:id="@+id/tvTitle"
