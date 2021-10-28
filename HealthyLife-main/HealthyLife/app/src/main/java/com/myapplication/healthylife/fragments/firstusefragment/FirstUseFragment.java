@@ -1,13 +1,17 @@
 package com.myapplication.healthylife.fragments.firstusefragment;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +52,7 @@ public class FirstUseFragment extends Fragment {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat dateTimeSdf = new SimpleDateFormat("dd/MM/yyyy, kk:mm:ss");
     private Date date;
+    private Boolean keyboardVisible = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +61,6 @@ public class FirstUseFragment extends Fragment {
         db = new DatabaseHelper(getContext());
 
         binding = FragmentFirstUseBinding.inflate(getLayoutInflater());
-
         return binding.getRoot();
     }
 
@@ -69,7 +73,7 @@ public class FirstUseFragment extends Fragment {
     }
 
     private void listenFocus() {
-        binding.etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.etName.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b)  {
@@ -80,17 +84,16 @@ public class FirstUseFragment extends Fragment {
                             ScrollUtils.scrollToView(binding.scrollview, view);
                         }
                     }, 500);
-
                 }else   {
                     KeyboardUtils.hideKeyboard(view);
                 }
             }
         });
 
-        binding.etWeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.etWeight.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b)  {
+                if (b) {
                     binding.scrollview.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -104,7 +107,7 @@ public class FirstUseFragment extends Fragment {
             }
         });
 
-        binding.etHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.etHeight.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b)  {
@@ -119,6 +122,7 @@ public class FirstUseFragment extends Fragment {
                 }
             }
         });
+
     }
 
     @Override
@@ -128,46 +132,49 @@ public class FirstUseFragment extends Fragment {
         binding.btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!binding.etName.getText().toString().equals("") && validateString(binding.etName.getText().toString())) {
-                    if (!binding.etHeight.getText().toString().equals("")
-                            && validateFloat(binding.etHeight.getText().toString())
-                            && (Float.valueOf(binding.etHeight.getText().toString()) >= 10  && Float.valueOf(binding.etHeight.getText().toString()) <= 300))    {
-                        if (!binding.etWeight.getText().toString().equals("")
-                                && validateFloat(binding.etWeight.getText().toString())
-                                && (Float.valueOf(binding.etWeight.getText().toString()) >= 1 && Float.valueOf(binding.etWeight.getText().toString()) <= 600))    {
+                if(!binding.etName.getEditText().getText().toString().equals("") && validateString(binding.etName.getEditText().getText().toString())) {
+                    binding.etName.setError(null);
+                    if (!binding.etHeight.getEditText().getText().toString().equals("")
+                            && validateFloat(binding.etHeight.getEditText().getText().toString())
+                            && (Float.valueOf(binding.etHeight.getEditText().getText().toString()) >= 10  && Float.valueOf(binding.etHeight.getEditText().getText().toString()) <= 300))    {
+                        binding.etHeight.setError(null);
+                        if (!binding.etWeight.getEditText().getText().toString().equals("")
+                                && validateFloat(binding.etWeight.getEditText().getText().toString())
+                                && (Float.valueOf(binding.etWeight.getEditText().getText().toString()) >= 1 && Float.valueOf(binding.etWeight.getEditText().getText().toString()) <= 600))    {
+                            binding.etWeight.setError(null);
                             setUpDataForNewUser();
                             navController.navigate(R.id.action_firstUseFragment_to_mainFragment);
                         }else   {
                             focusEditText(binding.etWeight);
-                            Toast.makeText(getActivity(), "Invalid Weight", Toast.LENGTH_SHORT).show();
+                            binding.etWeight.setError("Invalid Weight");
                         }
                     }else   {
                         focusEditText(binding.etHeight);
-                        Toast.makeText(getActivity(), "Invalid Height", Toast.LENGTH_SHORT).show();
+                        binding.etHeight.setError("Invalid Height");
                     }
                 }else   {
                     focusEditText(binding.etName);
-                    Toast.makeText(getActivity(), "Invalid Name", Toast.LENGTH_SHORT).show();
+                    binding.etName.setError("Invalid Name");
                 }
             }
         });
 
-        KeyboardUtils.addKeyboardToggleListener(getActivity(), new KeyboardUtils.SoftKeyboardToggleListener()
-        {
-            @Override
-            public void onToggleSoftKeyboard(boolean isVisible)
-            {
-                if(!isVisible)   {
-                    binding.parent.requestFocus();
-                }
-            }
-        });
+//        KeyboardUtils.addKeyboardToggleListener(getActivity(), new KeyboardUtils.SoftKeyboardToggleListener()
+//        {
+//            @Override
+//            public void onToggleSoftKeyboard(boolean isVisible)
+//            {
+//                if(!isVisible && getActivity().getCurrentFocus() != binding.parent)   {
+//                    binding.parent.requestFocus();
+//                }
+//            }
+//        });
     }
 
     private void setUpDataForNewUser()  {
-        User user = new User(binding.etName.getText().toString(),
-                Float.valueOf(binding.etHeight.getText().toString()),
-                Float.valueOf(binding.etWeight.getText().toString()));
+        User user = new User(binding.etName.getEditText().getText().toString(),
+                Float.valueOf(binding.etHeight.getEditText().getText().toString()),
+                Float.valueOf(binding.etWeight.getEditText().getText().toString()));
 
         double bmi = Math.round(((user.getWeight()/Math.pow(user.getHeight()/100, 2))*10)/10);
         Log.d("DATA", String.valueOf(bmi));
@@ -184,7 +191,7 @@ public class FirstUseFragment extends Fragment {
 
         exercises = ExerciseUtils.initExercises();
         ExerciseUtils.saveListOfExercisesForNewUser(exercises, bmi);
-        // TODO: 10/25/2021 convert Diet and Dish into utils classes 
+        // TODO: 10/25/2021 convert Diet and Dish into utils classes, change edittext to textinputlayout in firstuse and stat and home
         DatabaseUtils.saveListofDietForNewUser(diets, bmi);
         DatabaseUtils.saveListofDishForNewUser(dishes);
         db.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
@@ -231,4 +238,17 @@ public class FirstUseFragment extends Fragment {
         super.onStop();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
+
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                Log.d("BACK", "handleOnBackPressed: ");
+//            }
+//        };
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+//    }
 }

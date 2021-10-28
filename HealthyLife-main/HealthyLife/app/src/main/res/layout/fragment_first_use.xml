@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
     android:id="@+id/scrollview"
-    >
+    android:fillViewport="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,72 +38,72 @@
             android:layout_below="@id/tvTitle"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/custom_font"
-                android:text="Your Name"
-                android:textColor="@android:color/white"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/custom_font"
-                android:hint="John Son"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:hint="Your name"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                app:errorTextAppearance="@style/text_in_layout_error_Style">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/custom_font"
-                android:text="Your Height (cm)"
-                android:textColor="@android:color/white"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <com.myapplication.healthylife.EditTextV2
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/custom_font"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/custom_font"
-                android:hint="173"
-                android:inputType="numberDecimal"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:hint="Your Height"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                app:errorTextAppearance="@style/text_in_layout_error_Style">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/custom_font"
-                android:text="Your Weight (kg)"
-                android:textColor="@android:color/white"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <com.myapplication.healthylife.EditTextV2
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/custom_font"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/custom_font"
-                android:hint="73.5"
-                android:inputType="numberDecimal"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:hint="Your Weight"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                app:errorTextAppearance="@style/text_in_layout_error_Style">
+
+                <com.myapplication.healthylife.EditTextV2
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/custom_font"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <Button
@@ -110,8 +111,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/linearInfo"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="50dp"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/custom_font"
             android:text="Start"
