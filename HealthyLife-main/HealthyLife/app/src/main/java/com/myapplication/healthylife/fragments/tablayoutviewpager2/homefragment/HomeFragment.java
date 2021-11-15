@@ -36,9 +36,13 @@ import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Exercise;
 import com.myapplication.healthylife.model.Stat;
 import com.myapplication.healthylife.model.User;
+import com.myapplication.healthylife.utils.DatabaseUtils;
+import com.myapplication.healthylife.utils.DietUtils;
+import com.myapplication.healthylife.utils.DishUtils;
 import com.myapplication.healthylife.utils.ExerciseUtils;
 import com.myapplication.healthylife.utils.KeyboardUtils;
 import com.myapplication.healthylife.utils.ScrollUtils;
+import com.myapplication.healthylife.utils.StatUtils;
 import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 
 import java.text.SimpleDateFormat;
@@ -216,10 +220,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sharedPreferences.edit().putString("user", null).apply();
-                db.deleteAllExercises();
-                db.deleteAllStat();
-                db.deleteAllDiets();
-                db.deleteAllDishes();
+                DatabaseUtils.deleteUserData();
                 navController.navigate(R.id.action_mainFragment_to_firstUseFragment);
             }
         });

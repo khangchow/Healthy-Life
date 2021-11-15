@@ -49,8 +49,6 @@ public class FirstUseFragment extends Fragment {
     private NavController navController;
 
     private SharedPreferences sharedPreferences;
-    private ArrayList<Diet> diets = new ArrayList<>();
-    private ArrayList<Dish> dishes = new ArrayList<>();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat dateTimeSdf = new SimpleDateFormat("dd/MM/yyyy, kk:mm:ss");
     private Date date;
@@ -182,8 +180,8 @@ public class FirstUseFragment extends Fragment {
 
         ExerciseUtils.saveListOfExercisesForNewUser(bmi);
         // TODO: 10/25/2021 change edittext to textinputlayout in stat and home
-        DietUtils.saveListofDietForNewUser(diets, bmi);
-        DishUtils.saveListofDishForNewUser(dishes);
+        DietUtils.saveListofDietForNewUser(bmi);
+        DishUtils.saveListofDishForNewUser();
         StatUtils.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
     }
 

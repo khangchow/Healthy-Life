@@ -73,4 +73,11 @@ public class DatabaseUtils extends Application {
     public static Boolean editAssignedDiet(Diet diet) {
         return db.editAssignedDiet(diet);
     }
+
+    public static void deleteUserData() {
+        removeDishes();
+        removeStats();
+        removeExercises();
+        removeDiets();
+    }
 }
