@@ -21,13 +21,14 @@ import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Diet;
 import com.myapplication.healthylife.model.Dish;
 import com.myapplication.healthylife.adapter.recycleview.DietRecViewAdapter;
+import com.myapplication.healthylife.utils.DietUtils;
+import com.myapplication.healthylife.utils.DishUtils;
 
 import java.util.ArrayList;
 
 public class DietRecommendFragment extends Fragment {
     private FragmentDietRecommendBinding binding;
     private NavController navController;
-    private DatabaseHelper db;
     private ArrayList<Diet> dietList;
     private ArrayList<Dish> dish;
     private SharedPreferences sharedPreferences;
@@ -37,7 +38,6 @@ public class DietRecommendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDietRecommendBinding.inflate(getLayoutInflater());
-        db = new DatabaseHelper(getContext());
         sharedPreferences = AppPrefs.getInstance(getContext());
         return binding.getRoot();
     }
@@ -50,8 +50,8 @@ public class DietRecommendFragment extends Fragment {
     }
 
     private void initDietRecycleView() {
-        dietList = db.getDietList();
-        dish = db.getDishList();
+        dietList = DietUtils.getDietList();
+        dish = DishUtils.getDishList();
         int m = 0;
         for (Diet diet : dietList) {
             for(Dish d:dish) {

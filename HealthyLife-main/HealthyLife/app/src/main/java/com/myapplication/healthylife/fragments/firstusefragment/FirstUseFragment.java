@@ -30,9 +30,13 @@ import com.myapplication.healthylife.model.Exercise;
 import com.myapplication.healthylife.model.Stat;
 import com.myapplication.healthylife.model.User;
 import com.myapplication.healthylife.utils.DatabaseUtils;
+import com.myapplication.healthylife.utils.DietUtils;
+import com.myapplication.healthylife.utils.DishUtils;
 import com.myapplication.healthylife.utils.ExerciseUtils;
 import com.myapplication.healthylife.utils.KeyboardUtils;
 import com.myapplication.healthylife.utils.ScrollUtils;
+import com.myapplication.healthylife.utils.StatUtils;
+import com.myapplication.healthylife.utils.ValidatorUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,20 +49,16 @@ public class FirstUseFragment extends Fragment {
     private NavController navController;
 
     private SharedPreferences sharedPreferences;
-    private ArrayList<Exercise> exercises = new ArrayList<>();
     private ArrayList<Diet> diets = new ArrayList<>();
     private ArrayList<Dish> dishes = new ArrayList<>();
-    private DatabaseHelper db;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat dateTimeSdf = new SimpleDateFormat("dd/MM/yyyy, kk:mm:ss");
     private Date date;
-    private Boolean keyboardVisible = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         sharedPreferences = AppPrefs.getInstance(getContext());
-        db = new DatabaseHelper(getContext());
 
         binding = FragmentFirstUseBinding.inflate(getLayoutInflater());
         return binding.getRoot();
@@ -132,15 +132,17 @@ public class FirstUseFragment extends Fragment {
         binding.btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!binding.etName.getEditText().getText().toString().equals("") && validateString(binding.etName.getEditText().getText().toString())) {
+                String name, height, weight;
+
+                name = binding.etName.getEditText().getText().toString();
+                height = binding.etHeight.getEditText().getText().toString();
+                weight = binding.etWeight.getEditText().getText().toString();
+
+                if(ValidatorUtils.validateString(name)) {
                     binding.etName.setError(null);
-                    if (!binding.etHeight.getEditText().getText().toString().equals("")
-                            && validateFloat(binding.etHeight.getEditText().getText().toString())
-                            && (Float.valueOf(binding.etHeight.getEditText().getText().toString()) >= 10  && Float.valueOf(binding.etHeight.getEditText().getText().toString()) <= 300))    {
+                    if (ValidatorUtils.validateHeight(height))    {
                         binding.etHeight.setError(null);
-                        if (!binding.etWeight.getEditText().getText().toString().equals("")
-                                && validateFloat(binding.etWeight.getEditText().getText().toString())
-                                && (Float.valueOf(binding.etWeight.getEditText().getText().toString()) >= 1 && Float.valueOf(binding.etWeight.getEditText().getText().toString()) <= 600))    {
+                        if (ValidatorUtils.validateWeight(weight))    {
                             binding.etWeight.setError(null);
                             setUpDataForNewUser();
                             navController.navigate(R.id.action_firstUseFragment_to_mainFragment);
@@ -158,17 +160,6 @@ public class FirstUseFragment extends Fragment {
                 }
             }
         });
-
-//        KeyboardUtils.addKeyboardToggleListener(getActivity(), new KeyboardUtils.SoftKeyboardToggleListener()
-//        {
-//            @Override
-//            public void onToggleSoftKeyboard(boolean isVisible)
-//            {
-//                if(!isVisible && getActivity().getCurrentFocus() != binding.parent)   {
-//                    binding.parent.requestFocus();
-//                }
-//            }
-//        });
     }
 
     private void setUpDataForNewUser()  {
@@ -189,12 +180,11 @@ public class FirstUseFragment extends Fragment {
 
         sharedPreferences.edit().putString("lastLogin", now).apply();
 
-        exercises = ExerciseUtils.initExercises();
-        ExerciseUtils.saveListOfExercisesForNewUser(exercises, bmi);
-        // TODO: 10/25/2021 convert Diet and Dish into utils classes, change edittext to textinputlayout in firstuse and stat and home
-        DatabaseUtils.saveListofDietForNewUser(diets, bmi);
-        DatabaseUtils.saveListofDishForNewUser(dishes);
-        db.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
+        ExerciseUtils.saveListOfExercisesForNewUser(bmi);
+        // TODO: 10/25/2021 change edittext to textinputlayout in stat and home
+        DietUtils.saveListofDietForNewUser(diets, bmi);
+        DishUtils.saveListofDishForNewUser(dishes);
+        StatUtils.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
     }
 
     private void focusEditText(View view)    {
@@ -207,26 +197,6 @@ public class FirstUseFragment extends Fragment {
         }, 500);
         KeyboardUtils.openKeyboard(view);
     }
-
-    private Boolean validateString(String str)   {
-        Pattern patternString = Pattern.compile("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$");
-        Matcher matcher = patternString.matcher(str);
-        if (matcher.find()) {
-            return true;
-        }
-        return false;
-    }
-
-    private Boolean validateFloat(String num) {
-        Pattern patternFloat = Pattern.compile("([0-9]*[.])?[0-9]+");
-        Matcher matcher = patternFloat.matcher(num);
-        if (matcher.find()) {
-            return true;
-        }
-        return false;
-    }
-
-
 
     @Override
     public void onResume() {

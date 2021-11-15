@@ -75,16 +75,13 @@ public class ExerciseUtils {
                 "Traditional push-ups are beneficial for building upper body strength. They work the triceps, pectoral muscles, and shoulders. When done with proper form, they can also strengthen the lower back and core.",
                 "- Get down on all fours, placing your hands slightly wider than your shoulders.\n-Straighten your arms and legs.\n- Lower your body until your chest nearly touches the floor.\n-Pause, then push yourself back up.\n-Repeat.\n\nNOTICE:\n- 10-20 reps/set.\n- 2 sets/time.\n- 10s resting between sets.\n- 1 minute resting before moving to other exercises.",
                 "None",45,10,3,60,70));
-//        diets.add(new Diet(-1, "Low-carb Diet","Diets with restriction on carbohydrate-rich products. The primary aim of the diet is to force your body to use more fats for fuel instead of using carbs as a main source of energy.","In extremely rare cases, very low-carb diets can cause a serious condition called nondiabetic ketoacidosis. This condition seems to be more common in lactating women and can be fatal if left untreated.",1800,new int[]{2, 3, 4, 5},false,false,false));
-//        diets.add(new Diet(-1, "Keto Diet","The keto diet is a low carb, high fat diet. It lowers blood sugar and insulin levels and shifts the body’s metabolism away from carbs and toward fat and ketones.","Although the ketogenic diet is usually safe for most healthy people, there may be some initial side effects known as keto flu while your body adapts. You can try low-carb diẻt first for adaptation",1650,new int[]{2, 3, 4, 5},true,false, false));
-//        diets.add(new Diet(-1, "Vegan Diet","A vegan diet excludes all animal products.","Vegan diets is effective at helping people naturally reduce the amount of calories they eat, resulting in weight loss.However,Vegans may be at an increased risk of certain nutrient deficiencies.",1500, new int[]{2,3,4},true,true,true));
-//        diets.add(new Diet(-1, "3k Diet", "A diet to gain weight for underweight people","Keep exercising for balance, or you will be overwhelmed by the calories taken in.", 3000, new int[]{1}, true,true,false));
         return exercises;
     }
 
-    public static void saveListOfExercisesForNewUser(ArrayList<Exercise> exercises,double bmi)    {
+    public static void saveListOfExercisesForNewUser(double bmi)    {
         boolean startRecommended = false;
         boolean startOthers = false;
+        ArrayList<Exercise> exercises = initExercises();
         ArrayList<Exercise> result = new ArrayList<>();
         int type;
         if (bmi >= 35) {

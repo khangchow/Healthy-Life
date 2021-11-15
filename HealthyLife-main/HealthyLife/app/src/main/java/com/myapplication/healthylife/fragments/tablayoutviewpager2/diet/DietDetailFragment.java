@@ -26,6 +26,8 @@ import com.myapplication.healthylife.model.Diet;
 import com.myapplication.healthylife.model.Dish;
 import com.myapplication.healthylife.model.User;
 import com.myapplication.healthylife.adapter.recycleview.DishRecViewAdapter;
+import com.myapplication.healthylife.utils.DatabaseUtils;
+import com.myapplication.healthylife.utils.DietUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,7 +36,6 @@ public class DietDetailFragment extends Fragment{
     private FragmentDietDetailBinding binding;
     private NavController navController;
     private Diet diet;
-    private DatabaseHelper db;
     private int number = 0;
     private ArrayList<Diet> diets;
     private SharedPreferences sharedPreferences;
@@ -45,7 +46,6 @@ public class DietDetailFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         diet = (Diet) getArguments().getSerializable("DietData");
-        db = new DatabaseHelper(getContext());
         sharedPreferences = AppPrefs.getInstance(getContext());
     }
 
@@ -88,7 +88,7 @@ public class DietDetailFragment extends Fragment{
         binding.LoveList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                diets = db.getDietList();
+                diets = DatabaseUtils.getDietList();
                 boolean alreadyExists = false;
                 for(Diet i : diets){
                     if(i.isAssigned()){
@@ -101,7 +101,7 @@ public class DietDetailFragment extends Fragment{
                 User user = new Gson().fromJson(data, User.class);
                 if(!alreadyExists) {
                     diet.setAssigned(true);
-                    db.editAssignedDiet(diet);
+                    DietUtils.editAssignedDiet(diet);
                     user.setCaloDiet(diet.getCalories());
                     sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
                     Bundle bundle = new Bundle();
@@ -118,8 +118,8 @@ public class DietDetailFragment extends Fragment{
                                 public void onClick(DialogInterface dialog, int id) {
                                     diet.setAssigned(true);
                                     diets.get(number).setAssigned(false);
-                                    db.editAssignedDiet(diet);
-                                    db.editAssignedDiet(diets.get(number));
+                                    DietUtils.editAssignedDiet(diet);
+                                    DietUtils.editAssignedDiet(diets.get(number));
                                     user.setCaloDiet(diet.getCalories());
                                     sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
                                     Bundle bundle = new Bundle();

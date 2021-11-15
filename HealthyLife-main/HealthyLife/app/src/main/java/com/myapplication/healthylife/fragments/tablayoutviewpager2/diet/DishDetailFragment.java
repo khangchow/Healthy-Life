@@ -33,7 +33,6 @@ import java.io.IOException;
 public class DishDetailFragment extends Fragment{
     private FragmentDishDetailBinding binding;
     private NavController navController;
-    private DatabaseHelper db;
     private SharedPreferences sharedPreferences;
     private Dish dish;
 
@@ -47,7 +46,6 @@ public class DishDetailFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDishDetailBinding.inflate(getLayoutInflater());
-        db = new DatabaseHelper(getContext());
         sharedPreferences = AppPrefs.getInstance(getContext());
         return binding.getRoot();
     }

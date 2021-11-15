@@ -26,6 +26,8 @@ import com.myapplication.healthylife.model.Diet;
 import com.myapplication.healthylife.model.Dish;
 import com.myapplication.healthylife.model.User;
 import com.myapplication.healthylife.adapter.recycleview.DishRecSecViewAdapter;
+import com.myapplication.healthylife.utils.DatabaseUtils;
+import com.myapplication.healthylife.utils.DietUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +36,6 @@ public class DietFragment extends Fragment {
 
     private FragmentDietBinding binding;
     private NavController navController;
-    private DatabaseHelper db;
     private SharedPreferences sharedPreferences;
     private ArrayList<Diet> diets;
     private ArrayList<Dish> dishes;
@@ -54,7 +55,6 @@ public class DietFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDietBinding.inflate(getLayoutInflater());
-        db = new DatabaseHelper(getContext());
         sharedPreferences = AppPrefs.getInstance(getContext());
         return binding.getRoot();
     }
@@ -63,8 +63,8 @@ public class DietFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         int index = 0;
-        diets=db.getDietList();
-        dishes=db.getDishList();
+        diets = DatabaseUtils.getDietList();
+        dishes = DatabaseUtils.getDishList();
         for(Diet i : diets){
             if(i.isAssigned()){
                 AssignedDiet = i;
@@ -192,7 +192,7 @@ public class DietFragment extends Fragment {
                                     user.setCaloDiet(0);
                                     sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
                                     AssignedDiet.setAssigned(false);
-                                    db.editAssignedDiet(AssignedDiet);
+                                    DietUtils.editAssignedDiet(AssignedDiet);
                                     navController.navigate(R.id.action_mainFragment_to_mainFragment);
                                 }
                             });
