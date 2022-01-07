@@ -2,6 +2,7 @@ package com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
+import com.myapplication.healthylife.BaseActivity;
 import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentMainFitnessBinding;
 import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.model.User;
+import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 
 
 public class MainFitnessFragment extends Fragment {
@@ -24,13 +28,14 @@ public class MainFitnessFragment extends Fragment {
     NavController navController;
     SharedPreferences sharedPreferences;
     User user;
+    private CommunicateViewModel viewModel;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMainFitnessBinding.inflate(getLayoutInflater());
         sharedPreferences = AppPrefs.getInstance(getContext());
-        String data = sharedPreferences.getString("user", null);
-        user = new Gson().fromJson(data, User.class);
+        user = BaseActivity.getUserData();
+        viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
         return binding.getRoot();
     }
 
@@ -38,11 +43,25 @@ public class MainFitnessFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setUserDataToViews();
+
+        viewModel.isUpdated.observe(getViewLifecycleOwner(), isUpdated -> {
+            if (isUpdated) {
+                user = BaseActivity.getUserData();
+
+                setUserDataToViews();
+            }
+        });
+
+
+
+    }
+
+    private void setUserDataToViews() {
         binding.tvHeight.setText(String.valueOf(user.getHeight()));
         binding.tvWeight.setText(String.valueOf(user.getWeight()));
         binding.tvBmi.setText(String.valueOf(user.getBmi()));
         binding.tvType.setText(getType());
-
     }
 
     private String getType()    {

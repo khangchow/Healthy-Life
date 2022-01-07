@@ -154,7 +154,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="WORK OUT"
@@ -169,7 +169,7 @@
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="EXERCISE LIST"
@@ -184,7 +184,7 @@
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="BREATHE"
@@ -199,7 +199,7 @@
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Stand up NOTIFICATION"
@@ -214,7 +214,7 @@
         android:padding="10dp"
         android:background="@drawable/custom_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="MANAGE BMI"

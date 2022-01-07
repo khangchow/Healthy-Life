@@ -64,4 +64,16 @@ public class User {
     public void setBmi(double bmi) {
         this.bmi = bmi;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", bmi=" + bmi +
+                ", caloFitness=" + caloFitness +
+                ", caloDiet=" + caloDiet +
+                '}';
+    }
 }

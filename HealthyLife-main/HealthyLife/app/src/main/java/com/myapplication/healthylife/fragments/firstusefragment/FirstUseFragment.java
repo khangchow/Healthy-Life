@@ -20,6 +20,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
+import com.myapplication.healthylife.BaseFragment;
 import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentFirstUseBinding;
 import com.myapplication.healthylife.local.AppPrefs;
@@ -65,61 +66,6 @@ public class FirstUseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        listenFocus();
-
-    }
-
-    private void listenFocus() {
-        binding.etName.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b)  {
-                    Log.d("POS", binding.scrollview.getVerticalScrollbarPosition()+" "+ binding.scrollview.getBottom());
-                    binding.scrollview.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ScrollUtils.scrollToView(binding.scrollview, view);
-                        }
-                    }, 500);
-                }else   {
-                    KeyboardUtils.hideKeyboard(view);
-                }
-            }
-        });
-
-        binding.etWeight.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    binding.scrollview.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ScrollUtils.scrollToView(binding.scrollview, view);
-                        }
-                    }, 500);
-                }
-                else   {
-                    KeyboardUtils.hideKeyboard(view);
-                }
-            }
-        });
-
-        binding.etHeight.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b)  {
-                    binding.scrollview.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ScrollUtils.scrollToView(binding.scrollview, view);
-                        }
-                    }, 500);
-                }else   {
-                    KeyboardUtils.hideKeyboard(view);
-                }
-            }
-        });
 
     }
 
@@ -187,12 +133,7 @@ public class FirstUseFragment extends Fragment {
 
     private void focusEditText(View view)    {
         view.requestFocus();
-        binding.scrollview.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ScrollUtils.scrollToView(binding.scrollview, view);
-            }
-        }, 500);
+
         KeyboardUtils.openKeyboard(view);
     }
 

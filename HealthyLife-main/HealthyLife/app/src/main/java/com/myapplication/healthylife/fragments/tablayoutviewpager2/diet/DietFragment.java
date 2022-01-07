@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ import com.myapplication.healthylife.model.User;
 import com.myapplication.healthylife.adapter.recycleview.DishRecSecViewAdapter;
 import com.myapplication.healthylife.utils.DatabaseUtils;
 import com.myapplication.healthylife.utils.DietUtils;
+import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,12 +45,13 @@ public class DietFragment extends Fragment {
     private DishRecSecViewAdapter dishRecViewAdapterLunch;
     private DishRecSecViewAdapter dishRecViewAdapterDinner;
     private Diet AssignedDiet = null;
+    private CommunicateViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        diet = (Diet) getArguments().getSerializable("PickDietData");
-
+        viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
     }
 
     @Override
@@ -62,6 +65,23 @@ public class DietFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        viewModel.isUpdated.observe(getViewLifecycleOwner(), isUpdated -> {
+            if (isUpdated) {
+                if (AssignedDiet != null) {
+                    resetDiet();
+                }
+            }
+        });
+
+        viewModel.isLogout.observe(getViewLifecycleOwner(), isLogout-> {
+            if (isLogout) {
+                if (AssignedDiet != null) {
+                    resetDiet();
+                }
+            }
+        });
+
         int index = 0;
         diets = DatabaseUtils.getDietList();
         dishes = DatabaseUtils.getDishList();
@@ -73,6 +93,7 @@ public class DietFragment extends Fragment {
             index++;
         }
         if(index == diets.size()){
+            binding.LoveDishNotification.setVisibility(View.VISIBLE);
             binding.LoveDishNotification.setText("No dishes found! " +
                     "Please pick a diet by clicking recommend button and doing further actions.");
             binding.layoutTodayList.setVisibility(View.GONE);
@@ -80,6 +101,7 @@ public class DietFragment extends Fragment {
         else {
             int Check = AssignDishesToDiet(diets.get(index));
             if (Check == 0) {
+                binding.LoveDishNotification.setVisibility(View.VISIBLE);
                 binding.LoveDishNotification.setText("Not enough dishes found! " +
                         "Please pick another diet by clicking recommend button and doing further actions.");
                 binding.layoutTodayList.setVisibility(View.GONE);
@@ -187,13 +209,7 @@ public class DietFragment extends Fragment {
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    String data = sharedPreferences.getString("user", null);
-                                    User user = new Gson().fromJson(data, User.class);
-                                    user.setCaloDiet(0);
-                                    sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
-                                    AssignedDiet.setAssigned(false);
-                                    DietUtils.editAssignedDiet(AssignedDiet);
-                                    navController.navigate(R.id.action_mainFragment_to_mainFragment);
+                                    resetDiet();
                                 }
                             });
 
@@ -224,5 +240,19 @@ public class DietFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    private void resetDiet() {
+        String data = sharedPreferences.getString("user", null);
+        User user = new Gson().fromJson(data, User.class);
+        user.setCaloDiet(0);
+        sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
+        AssignedDiet.setAssigned(false);
+        DietUtils.editAssignedDiet(AssignedDiet);
+//        navController.navigate(R.id.action_mainFragment_to_mainFragment);
+        binding.LoveDishNotification.setVisibility(View.VISIBLE);
+        binding.LoveDishNotification.setText("No dishes found! " +
+                "Please pick a diet by clicking recommend button and doing further actions.");
+        binding.layoutTodayList.setVisibility(View.GONE);
     }
 }

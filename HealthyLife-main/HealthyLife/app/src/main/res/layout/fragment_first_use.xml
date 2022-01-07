@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
-    android:id="@+id/scrollview"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="20dp">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
-        android:focusable="true"
-        android:padding="20dp"
-        android:id="@+id/parent">
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/custom_font"
-            android:text="Healthy Life"
-            android:textColor="@android:color/white"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/scrollView">
 
         <LinearLayout
             android:id="@+id/linearInfo"
@@ -38,25 +22,35 @@
             android:layout_below="@id/tvTitle"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/custom_font"
+                android:text="Healthy Life"
+                android:textColor="@android:color/white"
+                android:textSize="50sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_edittext"
-                android:hint="Your name"
-                android:paddingStart="20sp"
-                android:paddingEnd="20sp"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextAppearance="@style/text_in_layout_hint_Style"
-                app:errorTextAppearance="@style/text_in_layout_error_Style">
+                android:theme="@style/TextInputLayoutStyle">
 
                 <com.myapplication.healthylife.EditTextV2
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:fontFamily="@font/custom_font"/>
+                    android:fontFamily="@font/custom_font"
+                    android:hint="Name"
+                    android:padding="20dp"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -66,21 +60,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_edittext"
-                android:hint="Your Height"
-                android:paddingStart="20sp"
-                android:paddingEnd="20sp"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextAppearance="@style/text_in_layout_hint_Style"
-                app:errorTextAppearance="@style/text_in_layout_error_Style">
+                android:theme="@style/TextInputLayoutStyle">
 
                 <com.myapplication.healthylife.EditTextV2
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:fontFamily="@font/custom_font"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:hint="Height"
+                    android:padding="20dp"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,34 +78,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_edittext"
-                android:hint="Your Weight"
-                android:paddingStart="20sp"
-                android:paddingEnd="20sp"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextAppearance="@style/text_in_layout_hint_Style"
-                app:errorTextAppearance="@style/text_in_layout_error_Style">
+                android:theme="@style/TextInputLayoutStyle">
 
                 <com.myapplication.healthylife.EditTextV2
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:fontFamily="@font/custom_font"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:hint="Weight"
+                    android:padding="20dp"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearInfo"
-            android:background="@drawable/custom_button"
-            android:fontFamily="@font/custom_font"
-            android:text="Start"
-            android:textAllCaps="true"
-            android:textSize="25sp" />
-    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearInfo"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/custom_font"
+        android:text="Start"
+        android:textAllCaps="true"
+        android:textSize="25sp"
+        android:layout_weight="0"/>
 
-</ScrollView>
+</LinearLayout>

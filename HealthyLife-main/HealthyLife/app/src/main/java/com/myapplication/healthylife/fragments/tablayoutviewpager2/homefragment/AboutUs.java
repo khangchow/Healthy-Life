@@ -29,7 +29,7 @@ public class AboutUs extends Fragment {
                 .isRTL(false)
                 .setDescription("Healthy Life - Stay strong and fit!")
                 .addItem(new Element().setTitle("Version 2.0"))
-                .addGroup("CONNECT WITH US!")
+                .addGroup("CONNECT WITH ME!")
                 .addEmail("khangchow@gmail.com")
                 .addWebsite("https://www.facebook.com/profile.php?id=100032225955405")
                 .addYoutube("")

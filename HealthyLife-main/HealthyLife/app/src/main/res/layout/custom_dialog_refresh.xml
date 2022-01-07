@@ -48,22 +48,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:padding="10dp"
             android:textSize="20sp"
             android:hint="Your Height"
             android:id="@+id/etHeight"
             android:textColor="@color/black"
             android:fontFamily="@font/custom_font"
-            android:background="@drawable/custom_edittext"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true"
-            app:hintTextColor="@color/black">
+            android:theme="@style/TextInputLayoutStyle">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.myapplication.healthylife.EditTextV2
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.google.android.material.textfield.TextInputEditText>
+                android:layout_height="wrap_content"
+                android:padding="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -71,22 +66,17 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="20dp"
-            android:padding="10dp"
             android:textSize="20sp"
-            android:hint="Your Weight"
             android:id="@+id/etWeight"
             android:textColor="@color/black"
-            android:background="@drawable/custom_edittext"
             android:fontFamily="@font/custom_font"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true"
-            app:hintTextColor="@color/black">
+            android:theme="@style/TextInputLayoutStyle">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.myapplication.healthylife.EditTextV2
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.google.android.material.textfield.TextInputEditText>
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:hint="Your Weight"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -96,7 +86,7 @@
             android:layout_marginTop="20dp"
             android:weightSum="2">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="add"
@@ -108,7 +98,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="5dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 

@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.myapplication.healthylife.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private NavController navController;
     private ActivityMainBinding binding;
 
