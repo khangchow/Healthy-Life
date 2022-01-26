@@ -39,8 +39,10 @@ public class DietUtils {
     }
 
     public static void saveListofDietForNewUser(double bmi) {
+        Log.d("DIET", "DIET");
         boolean startRecommended = false;
         ArrayList<Diet> diets = initDietList();
+        Log.d("DIET", diets.toString());
         ArrayList<Diet> result = new ArrayList<>();
         int type;
         if (bmi >= 35) {
@@ -54,24 +56,23 @@ public class DietUtils {
         } else {
             type = 1;
         }
-        Log.d("DATA", String.valueOf(type));
+
         for (Diet d : diets) {
             for (int i : d.getTypes()) {
                 if (i == type && !startRecommended) {
                     d.setRecommended(true);
-                    Log.d("REC", d.getName() + " " + d.isRecommended());
                     result.add(d);
                     startRecommended = true;
                     break;
                 } else if (i == type && startRecommended) {
                     d.setRecommended(true);
-                    Log.d("REC", d.getName() + " " + d.isRecommended());
                     result.add(d);
                     break;
                 }
             }
         }
         for (Diet d : result) {
+            Log.d("DIET", d.toString());
             DatabaseUtils.addDiet(d);
         }
     }

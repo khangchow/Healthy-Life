@@ -2,6 +2,7 @@ package com.myapplication.healthylife.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Diet implements Serializable {
     private int ID;
@@ -130,6 +131,11 @@ public class Diet implements Serializable {
 
     public ArrayList<Dish> getDinner() {
         return dinner;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }
 

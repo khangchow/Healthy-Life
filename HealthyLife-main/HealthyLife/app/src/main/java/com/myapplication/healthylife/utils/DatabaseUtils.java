@@ -35,7 +35,7 @@ public class DatabaseUtils extends Application {
     }
 
     public static void removeDiets()    {
-        db.deleteAllExercises();
+        db.deleteAllDiets();
     }
 
     public static void addDiet(Diet diet)   {

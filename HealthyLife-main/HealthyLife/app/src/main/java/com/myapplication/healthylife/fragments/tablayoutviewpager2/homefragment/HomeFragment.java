@@ -197,10 +197,13 @@ public class HomeFragment extends Fragment {
         binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPreferences.edit().putString("user", null).apply();
                 DatabaseUtils.deleteUserData();
+                sharedPreferences.edit().putString("user", null).apply();
 
-                viewModel.logout(true);
+                DietUtils.removeDiets();
+
+                DishUtils.removeDishes();
+//                viewModel.logout(true);
 
                 navController.navigate(R.id.action_mainFragment_to_firstUseFragment);
             }

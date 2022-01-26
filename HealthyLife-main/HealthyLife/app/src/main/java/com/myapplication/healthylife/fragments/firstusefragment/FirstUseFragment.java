@@ -125,7 +125,6 @@ public class FirstUseFragment extends Fragment {
         sharedPreferences.edit().putString("lastLogin", now).apply();
 
         ExerciseUtils.saveListOfExercisesForNewUser(bmi);
-        // TODO: 10/25/2021 change edittext to textinputlayout in stat and home
         DietUtils.saveListofDietForNewUser(bmi);
         DishUtils.saveListofDishForNewUser();
         StatUtils.addStat(new Stat(-1, user.getHeight(), user.getWeight(), user.getBmi(), dateTimeSdf.format(date)));
