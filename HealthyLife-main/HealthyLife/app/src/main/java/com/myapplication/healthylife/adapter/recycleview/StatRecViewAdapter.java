@@ -21,8 +21,11 @@ public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.
     private ArrayList<Stat> stats = new ArrayList<>();
     private DatabaseHelper db;
     private Context mContext;
+    private BMIUpdateListener listener;
+    private Stat lastStat;
 
-    public StatRecViewAdapter(Context context) {
+    public StatRecViewAdapter(Context context, BMIUpdateListener listener) {
+        this.listener = listener;
         this.db = new DatabaseHelper(context);
         this.mContext = context;
     }
@@ -45,7 +48,12 @@ public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.
 
     public void setStat(ArrayList<Stat> stats) {
         this.stats = stats;
+        lastStat = getLastStat();
         notifyDataSetChanged();
+    }
+
+    private Stat getLastStat() {
+        return stats.get(stats.size() - 1);
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
@@ -67,22 +75,33 @@ public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setMessage("Do you want to delete this record?")
-                            .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if (db.deleteStat(stat.getId()))    {
-                                        stats.remove(stat);
-                                        notifyItemRemoved(getAdapterPosition());
-                                        notifyItemRangeChanged(getItemCount(), stats.size());
-                                        Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                    if (stats.size() > 1) {
+                        builder.setMessage("Do you want to delete this record?")
+                                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        if (db.deleteStat(stat.getId()))    {
+                                            stats.remove(stat);
+                                            notifyItemRemoved(getAdapterPosition());
+                                            notifyItemRangeChanged(getItemCount(), stats.size());
+                                            Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
+                                            Stat currentLastStat = getLastStat();
+                                            if (currentLastStat.getHeight() != lastStat.getHeight() || currentLastStat.getWeight() != lastStat.getWeight()) {
+                                                lastStat = currentLastStat;
+                                                listener.resetData(currentLastStat.getHeight(), currentLastStat.getWeight());
+                                            }
+                                        }else{
+                                            Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            })
-                            .setPositiveButton("No", null)
-                            .show();
+                                })
+                                .setPositiveButton("No", null)
+                                .show();
+                    } else {
+                        builder.setMessage("There must be at least 1 BMI record!")
+                                .setPositiveButton("Got it", null)
+                                .show();
+                    }
                 }
             });
 
@@ -94,6 +113,5 @@ public class StatRecViewAdapter extends RecyclerView.Adapter<StatRecViewAdapter.
             });
         }
     }
-
-
 }
+

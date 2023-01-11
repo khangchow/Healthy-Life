@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.myapplication.healthylife.BaseActivity;
 import com.myapplication.healthylife.R;
+import com.myapplication.healthylife.adapter.recycleview.BMIUpdateListener;
 import com.myapplication.healthylife.databinding.FragmentStatBinding;
 import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
@@ -63,7 +64,10 @@ public class StatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new StatRecViewAdapter(getContext());
+        adapter = new StatRecViewAdapter(getContext(), (height, weight) -> {
+            double bmi = Math.round(((weight/Math.pow(height/100, 2))*10)/10);
+            resetData(height, weight, bmi);
+        });
         adapter.setStat(stats);
         binding.statRecView.setAdapter(adapter);
         binding.statRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,24 +92,14 @@ public class StatFragment extends Fragment {
                         if (!etHeight.getText().toString().equals("") && !etWeight.getText().toString().equals("")) {
                             height = Float.valueOf(etHeight.getText().toString());
                             weight = Float.valueOf(etWeight.getText().toString());
-                            double bmi = Math.round(((weight/Math.pow(height/100, 2))*10)/10);
                             date = new Date();
+                            double bmi = Math.round(((weight/Math.pow(height/100, 2))*10)/10);
                             Stat stat = new Stat(-1, height, weight, bmi, dateTimeSdf.format(date));
                             if (db.addStat(stat))   {
                                 stats.clear();
                                 stats = db.getStatList();
                                 adapter.setStat(stats);
-                                User user = BaseActivity.getUserData();
-                                user.setBmi(bmi);
-                                user.setHeight(height);
-                                user.setWeight(weight);
-                                user.setCaloDiet(0);
-                                user.setCaloFitness(0);
-                                sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
-                                ExerciseUtils.saveListOfExercisesForNewUser(bmi);
-                                DietUtils.saveListofDietForNewUser(bmi);
-                                DishUtils.saveListofDishForNewUser();
-                                viewModel.updatedBMI(true);
+                                resetData(height, weight, bmi);
                                 dialog.dismiss();
                             }
                         }else{
@@ -127,4 +121,18 @@ public class StatFragment extends Fragment {
             }
         });
     }
+
+   private void resetData(float height, float weight, double bmi) {
+       User user = BaseActivity.getUserData();
+       user.setBmi(bmi);
+       user.setHeight(height);
+       user.setWeight(weight);
+       user.setCaloDiet(0);
+       user.setCaloFitness(0);
+       sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
+       ExerciseUtils.saveListOfExercisesForNewUser(bmi);
+       DietUtils.saveListofDietForNewUser(bmi);
+       DishUtils.saveListofDishForNewUser();
+       viewModel.updatedBMI(true);
+   }
 }
