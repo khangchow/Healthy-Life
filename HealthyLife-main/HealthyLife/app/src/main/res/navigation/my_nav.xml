@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.myapplication.healthylife.fragments.tablayoutviewpager2.MainFragment"
-        android:label="Main"
+        android:label="Home Page"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_firstUseFragment"
