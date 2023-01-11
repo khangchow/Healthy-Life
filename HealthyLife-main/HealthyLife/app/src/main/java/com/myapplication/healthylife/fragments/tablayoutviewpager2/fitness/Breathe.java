@@ -56,16 +56,6 @@ public class Breathe extends Fragment {
                 mediaPlayer.setLooping(true);
             }
         });
-        binding.video.setMediaController(new MediaController(requireContext()){
-            public boolean dispatchKeyEvent(KeyEvent event)
-            {
-                if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                    requireActivity().onNavigateUp();
-                    return false;
-                }
-                return super.dispatchKeyEvent(event);
-            }
-        });
         binding.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
