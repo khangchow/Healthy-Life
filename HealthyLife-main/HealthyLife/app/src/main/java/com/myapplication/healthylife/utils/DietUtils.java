@@ -71,6 +71,7 @@ public class DietUtils {
                 }
             }
         }
+        removeDiets();
         for (Diet d : result) {
             Log.d("DIET", d.toString());
             DatabaseUtils.addDiet(d);

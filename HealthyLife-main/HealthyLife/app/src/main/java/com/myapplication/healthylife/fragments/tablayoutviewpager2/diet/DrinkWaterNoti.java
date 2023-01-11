@@ -48,7 +48,7 @@ public class DrinkWaterNoti extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
                     sharedPreferences.edit().putBoolean("water", true).commit();
-                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 1200000 , broadcast);
                 }
                 else{
                     sharedPreferences.edit().putBoolean("water", false).commit();

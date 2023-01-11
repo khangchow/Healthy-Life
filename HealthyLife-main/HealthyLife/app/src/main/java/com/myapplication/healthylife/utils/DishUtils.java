@@ -43,6 +43,7 @@ public class DishUtils {
 
     public static void saveListofDishForNewUser(){
         ArrayList<Dish> dishes = initDishList();
+        removeDishes();
         for (Dish d:dishes){
             DatabaseUtils.addDish(d);
         }

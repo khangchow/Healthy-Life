@@ -34,7 +34,6 @@ public class MainFitnessFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMainFitnessBinding.inflate(getLayoutInflater());
         sharedPreferences = AppPrefs.getInstance(getContext());
-        user = BaseActivity.getUserData();
         viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
         return binding.getRoot();
     }
@@ -46,9 +45,8 @@ public class MainFitnessFragment extends Fragment {
         setUserDataToViews();
 
         viewModel.isUpdated.observe(getViewLifecycleOwner(), isUpdated -> {
+            Log.d("CHOTAOTEST", "MainFitnessFragment: "+isUpdated);
             if (isUpdated) {
-                user = BaseActivity.getUserData();
-
                 setUserDataToViews();
             }
         });
@@ -58,6 +56,7 @@ public class MainFitnessFragment extends Fragment {
     }
 
     private void setUserDataToViews() {
+        user = BaseActivity.getUserData();
         binding.tvHeight.setText(String.valueOf(user.getHeight()));
         binding.tvWeight.setText(String.valueOf(user.getWeight()));
         binding.tvBmi.setText(String.valueOf(user.getBmi()));

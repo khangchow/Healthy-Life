@@ -1,5 +1,7 @@
 package com.myapplication.healthylife.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -19,6 +21,7 @@ public class CommunicateViewModel extends ViewModel {
     }
 
     public void updatedBMI(boolean isUpdated) {
+        Log.d("CHOTAOTEST", "updatedBMI: "+isUpdated);
         _isUpdated.postValue(isUpdated);
     }
 

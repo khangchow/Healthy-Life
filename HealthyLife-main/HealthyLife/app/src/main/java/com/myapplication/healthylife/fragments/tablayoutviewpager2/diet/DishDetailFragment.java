@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.TextureView;
@@ -64,10 +65,9 @@ public class DishDetailFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Uri webpage = Uri.parse(dish.getVideo());
+                Log.d("CHOTAOTEST", "onClick: "+webpage);
                 Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
+                requireActivity().startActivity(intent);
             }
         });
     }

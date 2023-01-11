@@ -43,7 +43,7 @@ public class StandUpNoti extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)  {
                     sharedPreferences.edit().putBoolean("standUp", true).commit();
-                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 1800000 , broadcast);
                 }
                 else{
                     sharedPreferences.edit().putBoolean("standUp", false).commit();

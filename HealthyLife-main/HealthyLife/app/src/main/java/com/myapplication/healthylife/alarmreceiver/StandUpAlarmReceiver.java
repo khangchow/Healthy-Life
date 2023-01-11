@@ -71,7 +71,7 @@ public class StandUpAlarmReceiver extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent(context, StandUpAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 1800000 , broadcast);
     }
 
     private int getId() {

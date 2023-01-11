@@ -74,9 +74,6 @@ public class HomeFragment extends Fragment {
         sharedPreferences = AppPrefs.getInstance(getContext());
         db = new DatabaseHelper(getContext());
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
-
-        user = BaseActivity.getUserData();
-
         viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
 
         return binding.getRoot();
@@ -90,17 +87,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == 0)   {
-                    user = BaseActivity.getUserData();
-
                     setTableData();
                 }
             }
         });
-
+        viewModel.isUpdated.observe(getViewLifecycleOwner(), isUpdated -> {
+            Log.d("CHOTAOTEST", "HomeFragment: "+isUpdated);
+            if (isUpdated) {
+                if (AssignedDiet != null) {
+                    setTableData();
+                }
+            }
+        });
         setTableData();
-
-
-
         if (challengeCompleted())   {
             // TODO: 10/16/2021 reset diet, improve diet detail interface
             displayUpdateHealthStatusDialog();
@@ -108,6 +107,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void setTableData() {
+        user = BaseActivity.getUserData();
+        binding.tvHello.setText("Hello, " + user.getName());
         binding.CaloExercise.setText(String.valueOf("-"+user.getCaloFitness()));
         binding.CaloDiet.setText(String.valueOf("+"+user.getCaloDiet()));
         binding.CaloTotal.setText(String.valueOf(user.getCaloDiet()-user.getCaloFitness()));
@@ -150,6 +151,8 @@ public class HomeFragment extends Fragment {
                         db.deleteAllExercises();
                         ExerciseUtils.saveListOfExercisesForNewUser(bmi);
                         Toast.makeText(getActivity(), "Updated BMI successfully! Check out your new excercise list now!", Toast.LENGTH_SHORT).show();
+                        DietUtils.saveListofDietForNewUser(bmi);
+                        DishUtils.saveListofDishForNewUser();
 
                         viewModel.updatedBMI(true);
 

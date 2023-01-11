@@ -32,7 +32,7 @@ public class AboutUs extends Fragment {
                 .addGroup("CONNECT WITH ME!")
                 .addEmail("khangchow@gmail.com")
                 .addWebsite("https://www.facebook.com/profile.php?id=100032225955405")
-                .addYoutube("")
+                .addYoutube("UCwH0IpvQEX5QkAnvACepIsw")
                 .addItem(createCopyright())
                 .create();
         v=aboutPage;

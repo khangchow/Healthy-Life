@@ -6,10 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Exercise;
 import com.myapplication.healthylife.adapter.recycleview.ExerciseRecViewAdapter;
+import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,12 +37,14 @@ public class FitnessFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private Date date;
+    private CommunicateViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFitnessBinding.inflate(getLayoutInflater());
         db = new DatabaseHelper(getContext());
+        viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
         sharedPreferences = AppPrefs.getInstance(getContext());
         return binding.getRoot();
     }
@@ -48,6 +53,12 @@ public class FitnessFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecycleViews();
+        viewModel.isUpdated.observe(getViewLifecycleOwner(), isUpdated -> {
+            Log.d("CHOTAOTEST", "FitnessFragment: "+isUpdated);
+            if (isUpdated) {
+                initRecycleViews();
+            }
+        });
     }
 
     private void initRecycleViews() {

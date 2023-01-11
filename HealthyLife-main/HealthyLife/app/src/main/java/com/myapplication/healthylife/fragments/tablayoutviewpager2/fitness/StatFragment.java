@@ -1,11 +1,13 @@
 package com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -17,11 +19,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.myapplication.healthylife.BaseActivity;
 import com.myapplication.healthylife.R;
 import com.myapplication.healthylife.databinding.FragmentStatBinding;
+import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Stat;
 import com.myapplication.healthylife.adapter.recycleview.StatRecViewAdapter;
+import com.myapplication.healthylife.model.User;
+import com.myapplication.healthylife.utils.DietUtils;
+import com.myapplication.healthylife.utils.DishUtils;
+import com.myapplication.healthylife.utils.ExerciseUtils;
+import com.myapplication.healthylife.viewmodel.CommunicateViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,14 +46,17 @@ public class StatFragment extends Fragment {
     StatRecViewAdapter adapter;
     private SimpleDateFormat dateTimeSdf = new SimpleDateFormat("dd/MM/yyyy, kk:mm:ss");
     private Date date;
+    private CommunicateViewModel viewModel;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStatBinding.inflate(getLayoutInflater());
         db = new DatabaseHelper(getContext());
-
+        viewModel = new ViewModelProvider(getActivity()).get(CommunicateViewModel.class);
         stats = db.getStatList();
+        sharedPreferences = AppPrefs.getInstance(getContext());
         return binding.getRoot();
     }
 
@@ -82,6 +95,17 @@ public class StatFragment extends Fragment {
                                 stats.clear();
                                 stats = db.getStatList();
                                 adapter.setStat(stats);
+                                User user = BaseActivity.getUserData();
+                                user.setBmi(bmi);
+                                user.setHeight(height);
+                                user.setWeight(weight);
+                                user.setCaloDiet(0);
+                                user.setCaloFitness(0);
+                                sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
+                                ExerciseUtils.saveListOfExercisesForNewUser(bmi);
+                                DietUtils.saveListofDietForNewUser(bmi);
+                                DishUtils.saveListofDishForNewUser();
+                                viewModel.updatedBMI(true);
                                 dialog.dismiss();
                             }
                         }else{

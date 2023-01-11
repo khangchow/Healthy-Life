@@ -72,7 +72,7 @@ public class WaterAlarmReceiver extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent(context, WaterAlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000 , broadcast);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 1200000 , broadcast);
     }
 
     private int getId() {

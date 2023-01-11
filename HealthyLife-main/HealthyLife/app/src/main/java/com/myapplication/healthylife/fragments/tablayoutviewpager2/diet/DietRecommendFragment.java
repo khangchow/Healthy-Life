@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myapplication.healthylife.R;
-import com.myapplication.healthylife.databinding.FragmentDietRecommendBinding;
 
+import com.myapplication.healthylife.databinding.FragmentDietRecommendBinding;
 import com.myapplication.healthylife.local.AppPrefs;
 import com.myapplication.healthylife.local.DatabaseHelper;
 import com.myapplication.healthylife.model.Diet;

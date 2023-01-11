@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dishDetailFragment"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    android:padding="20dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

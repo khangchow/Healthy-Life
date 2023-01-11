@@ -137,6 +137,7 @@ public class ExerciseUtils {
             }
         }
 
+        removeExercises();
         for (Exercise ex: result) {
             Log.d("DATA", ex.getName()+" "+ex.isRecommended()+" "+ex.isOthers()+" "+ex.isFirst());
             addExercise(ex);
