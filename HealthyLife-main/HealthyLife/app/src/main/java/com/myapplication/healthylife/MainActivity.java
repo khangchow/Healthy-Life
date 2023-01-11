@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.myapplication.healthylife.databinding.ActivityMainBinding;
@@ -45,5 +46,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d("CHOTAOTEST", "onBackPressed: ");
     }
 }

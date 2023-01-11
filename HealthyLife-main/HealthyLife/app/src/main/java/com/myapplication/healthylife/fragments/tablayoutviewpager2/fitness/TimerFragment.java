@@ -1,5 +1,6 @@
 package com.myapplication.healthylife.fragments.tablayoutviewpager2.fitness;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -18,6 +20,7 @@ import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.TextureView;
@@ -81,11 +84,7 @@ public class TimerFragment extends Fragment{
         binding.tvName.setText(listTimer.get(i).getName());
         binding.tvStatus.setText(listTimer.get(i).getStatus());
         updateTime(listTimer.get(i).getTime());
-
-        binding.video.setVideoURI(Uri.parse("android.resource://"+getActivity().getPackageName()+"/"+listTimer.get(i).getVideo()));
-        MediaController ctrl = new MediaController(getContext());
-        ctrl.setVisibility(View.GONE);
-        binding.video.setMediaController(ctrl);
+        binding.video.setMediaController(null);
         binding.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
@@ -97,6 +96,7 @@ public class TimerFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 if (!isRunning) {
+                    binding.video.setVideoURI(Uri.parse("android.resource://"+getActivity().getPackageName()+"/"+listTimer.get(i).getVideo()));
                     countDown(listTimer);
                     binding.video.setVisibility(View.VISIBLE);
                     binding.video.start();
@@ -107,16 +107,6 @@ public class TimerFragment extends Fragment{
                     timer.cancel();
                     updateTime(listTimer.get(i).getTime());
                     binding.video.stopPlayback();
-                    binding.video.setVideoURI(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + listTimer.get(i).getVideo()));
-                    MediaController ctrl = new MediaController(getContext());
-                    ctrl.setVisibility(View.GONE);
-                    binding.video.setMediaController(ctrl);
-                    binding.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.setLooping(true);
-                        }
-                    });
                     binding.video.setVisibility(view.GONE);
                     isRunning = false;
                     binding.btn.setText("Start");

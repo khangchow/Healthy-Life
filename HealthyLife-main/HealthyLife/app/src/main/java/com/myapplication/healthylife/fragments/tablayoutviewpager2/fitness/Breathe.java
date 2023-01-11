@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,13 +49,21 @@ public class Breathe extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         updateTime(60000);
         binding.video.setVideoURI(Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.breath));
-        MediaController ctrl = new MediaController(getContext());
-        ctrl.setVisibility(View.GONE);
-        binding.video.setMediaController(ctrl);
+        binding.video.setMediaController(null);
         binding.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.setLooping(true);
+            }
+        });
+        binding.video.setMediaController(new MediaController(requireContext()){
+            public boolean dispatchKeyEvent(KeyEvent event)
+            {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+                    requireActivity().onNavigateUp();
+                    return false;
+                }
+                return super.dispatchKeyEvent(event);
             }
         });
         binding.btn.setOnClickListener(new View.OnClickListener() {
@@ -71,16 +80,6 @@ public class Breathe extends Fragment {
                     timer.cancel();
                     updateTime(60000);
                     binding.video.stopPlayback();
-                    binding.video.setVideoURI(Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.breath));
-                    MediaController ctrl = new MediaController(getContext());
-                    ctrl.setVisibility(View.GONE);
-                    binding.video.setMediaController(ctrl);
-                    binding.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.setLooping(true);
-                        }
-                    });
                     binding.video.setVisibility(view.GONE);
                     isRunning = false;
                     binding.btn.setText("Start");
